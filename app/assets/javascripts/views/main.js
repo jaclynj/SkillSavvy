@@ -5,24 +5,32 @@ App.Views.Main = Backbone.View.extend({
   },
   initialize: function(){
     console.log('hi from the view');
+    this.resources = new App.Models.Resources();
+    this.listenTo(this.resources, 'gotResults', this.showResults);
   },
   submitSearch: function(e){
     e.preventDefault();
     var query = $('#search-field').val();
-    console.log(query);
-    App.apiSearch = new Bounce.MixedResultsSearch();
-    App.apiSearch.group = 'bounce-internet-and-blogs';
-    App.apiSearch.keywords = query;
-    App.apiSearch.exclude = 'ajax';
-    App.apiSearch.numPerPage = 10;
-    App.apiSearch.pageNum = 1;
-    var results = App.apiSearch.get(this.showResults);
+    this.resources.search(query);
   },
-  showResults: function(feedObject) {
+  showResults: function() {
+    this.results = this.resources.WebSearch.get(this.displayResults);
+  },
+  displayResults: function(feedObject) {
    var resultsArea = $('#results');
-   resultsArea.html(feedObject.title);
+   resultsArea.html("Web Search");
    for (var i=0; i < feedObject.entries.length; i++) {
-      resultsArea.append(feedObject.entries[i].title + "\n");
-   }
-}
+      var thisResource = feedObject.entries[i];
+      if (thisResource.link) {
+        div = $("<div>");
+        link = $('<a>',{
+                text: thisResource.title,
+                href: thisResource.link
+              })
+        div.append(link);
+        div.append("<br>" + thisResource.content + "<br>");
+        resultsArea.append(div);
+      }
+    }
+  }
 });
