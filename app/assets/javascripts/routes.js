@@ -4,6 +4,7 @@
       },
       initialize: function(){
         Backbone.history.start();
+        App.main = new App.Views.Main();
       },
       index: function(){
         console.log('index');
