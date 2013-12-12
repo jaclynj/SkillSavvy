@@ -1,7 +1,14 @@
 LearnerApp::Application.routes.draw do
+
   root to: 'welcome#index'
 
   get "welcome/index"
+
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  get "signup" => "users#new", :as => "signup"
+  resources :users
+  resources :sessions
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

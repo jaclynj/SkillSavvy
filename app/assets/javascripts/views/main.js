@@ -10,15 +10,18 @@ App.Views.Main = Backbone.View.extend({
   },
   submitSearch: function(e){
     e.preventDefault();
+    $('#results').html($('#throbber'));
+    $('#throbber').toggle();
     var query = $('#search-field').val();
-    this.resources.search(query);
+    this.resources.searchWeb(query);
   },
   showResults: function() {
-    this.results = this.resources.WebSearch.get(this.displayResults);
+    this.results = this.resources.webSearch.get(this.displayResults);
   },
   displayResults: function(feedObject) {
+    $('#throbber').toggle();
    var resultsArea = $('#results');
-   resultsArea.html("Web Search");
+   resultsArea.append("Web Search");
    for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
       if (thisResource.link) {
