@@ -5,6 +5,7 @@
       initialize: function(){
         Backbone.history.start();
         new App.Views.Main();
+        new App.UserSession();
       },
       index: function(){
         console.log('index');

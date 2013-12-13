@@ -2,21 +2,35 @@
 <html>
 <head>
   <title>LearnerApp</title>
+  <link href='http://fonts.googleapis.com/css?family=Comfortaa|Raleway' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="http://feeds.bounceisfree.com/api/bounce-lib.js"></script>
 <script type="text/javascript" src="http://feeds.bounceisfree.com/api/bounce-ajax-feed-api.js"></script>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+
+  <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body id="all">
+  <div id="user-box">
+    <%= link_to "Home", root_path %> |
   <%if current_user %>
-        <h3>Logged in as:</h3> <%= current_user.email %><br><%= link_to "Log Out", logout_path %>
+        Logged in as: <%= current_user.email %> | <%= link_to "Log Out", logout_path %>
       <% else %>
-      <%= link_to "Sign Up", signup_path %>
+      <%= link_to "Sign Up", signup_path %>  |
       <%= link_to "Login", login_path %>
         </div>
       </div>
     <% end %>
+  </div>
 
   <div id="container">
     <% flash.each do |name, msg| %>

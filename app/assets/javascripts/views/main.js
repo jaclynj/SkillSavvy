@@ -21,19 +21,37 @@ App.Views.Main = Backbone.View.extend({
   displayResults: function(feedObject) {
     $('#throbber').toggle();
    var resultsArea = $('#results');
-   resultsArea.append("Web Search");
+   webResults = $("<div>");
+   webResults.append("<h3>Web Search</h3>");
+   webResults.attr("id", "web-results");
    for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
       if (thisResource.link) {
         div = $("<div>");
-        link = $('<a>',{
+        resourceLink = $('<a>',{
                 text: thisResource.title,
                 href: thisResource.link
-              })
-        div.append(link);
+              });
+        div.append(resourceLink);
         div.append("<br>" + thisResource.content + "<br>");
-        resultsArea.append(div);
+        div.addClass("search-results");
+        rateLink = $('<a>',{
+                text: "Rate This",
+                href: '#'
+              });
+        logInLink = $('<a>',{
+                text: "Log In to Rate This",
+                href: '/login'
+              });
+        if (  $("#user-box:contains('Login')").length > 0  ) {
+          div.append(logInLink);
+        } else {
+          div.append(rateLink);
+        }
+        webResults.append(div);
       }
     }
+    resultsArea.append(webResults);
   }
 });
+

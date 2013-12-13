@@ -1,3 +1,64 @@
+#all {
+  background-color: #FFF1F0;
+  text-align: center;
+  font-size: 1.8em;
+  font-family: 'Raleway', sans-serif;
+  color: #544747;
+}
+
+#all h1 {
+font-family: 'Comfortaa', cursive;
+font-size: 3.4em;
+}
+
+#all h2 {
+  font-family: 'Raleway', sans-serif;
+}
+
+#results a {
+font-family: 'Comfortaa', cursive;
+font-size: 1.02em;
+}
+
+#all a {
+  color: #2AB251;
+}
+
+#search-field {
+  width: 40%;
+}
+
+#web-results {
+  width: 45%;
+  height: 350px;
+  overflow: scroll;
+  margin: 2%;
+  background-color: #FFF1F0;
+  border: 3px solid #D7D7d7;
+  border-radius: 10px;
+}
+
+#search-button {
+  background-color: #FFACB3;
+  border-radius: 5px;
+  margin-left: 1%;
+}
+#search-button:hover {
+  background-color: #FFB9C0;
+}
+
+.results {
+  background-color: #FFF1F0;
+}
+
 #throbber {
   display: none;
+}
+
+.search-results {
+  padding: 1.5%;
+  background-color: #FFF1F0;
+  margin: 0 auto;
+  border-top: 1.5px solid #dedede;
+  width: 90%;
 }
