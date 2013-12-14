@@ -3,5 +3,24 @@
   %h2 What skill do you want to learn or improve on?
   %input#search-field{ :type => "text", :placeholder => "i.e. play guitar, speak spanish, solve rubix cube"}
     %button#search-button search resources
-#results
-  =image_tag('ajax-loader.gif', height: '25', id: 'throbber')
+.container
+  #results.span6.center
+    =image_tag('ajax-loader.gif', height: '25', id: 'throbber')
+  #rating-form.hidden
+    %button#x-button x
+    %h3 Rate This
+    %label Overall Rating
+    %select
+      %option 5
+      %option 4
+      %option 3
+      %option 2
+      %option 1
+    %label Skill Level
+    %select
+      %option Newbie
+      %option Novice
+      %option Advanced
+      %option Expert
+    %input#submit{type: "submit"}
+

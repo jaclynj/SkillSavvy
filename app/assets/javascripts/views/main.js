@@ -4,7 +4,6 @@ App.Views.Main = Backbone.View.extend({
     "click button" : "submitSearch"
   },
   initialize: function(){
-    console.log('hi from the view');
     this.resources = new App.Models.Resources();
     this.listenTo(this.resources, 'gotResults', this.showResults);
   },
@@ -12,17 +11,19 @@ App.Views.Main = Backbone.View.extend({
     e.preventDefault();
     $('#results').html($('#throbber'));
     $('#throbber').toggle();
-    var query = $('#search-field').val();
-    this.resources.searchWeb(query);
+    this.query = $('#search-field').val();
+    this.resources.searchWeb(this.query);
   },
   showResults: function() {
-    this.results = this.resources.webSearch.get(this.displayResults);
+    this.resources.webSearch.get(this.displayResults);
+    this.results = new App.Views.Results({ el:"#results", attributes:{query: this.query} });
   },
   displayResults: function(feedObject) {
+    //refactor, turn this into a handlebars template
     $('#throbber').toggle();
    var resultsArea = $('#results');
    webResults = $("<div>");
-   webResults.append("<h3>Web Search</h3>");
+   webResults.append("<h3>Search</h3>");
    webResults.attr("id", "web-results");
    for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
@@ -30,15 +31,18 @@ App.Views.Main = Backbone.View.extend({
         div = $("<div>");
         resourceLink = $('<a>',{
                 text: thisResource.title,
-                href: thisResource.link
+                href: thisResource.link,
+                target: "_blank"
               });
+
         div.append(resourceLink);
         div.append("<br>" + thisResource.content + "<br>");
         div.addClass("search-results");
         rateLink = $('<a>',{
                 text: "Rate This",
-                href: '#'
+                href: '/ratings/new'
               });
+        rateLink.addClass('rate-this');
         logInLink = $('<a>',{
                 text: "Log In to Rate This",
                 href: '/login'

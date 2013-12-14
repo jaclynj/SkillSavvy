@@ -1,0 +1,11 @@
+#rating-form
+    #x-button
+        x
+    =form_for @rating do |f|
+        =label_tag :overall_rating, "Overall Rating"
+        =f.select :overall_rating, :options => [5, 4, 3, 2, 1]
+        %br
+        =label_tag :skill_level, "Skill Level"
+        =f.select :skill_level, :options => ["Newbie", "Novice", "Advanced", "Expert"]
+        %br
+        =f.submit "Submit Rating"

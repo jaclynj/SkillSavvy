@@ -9,6 +9,7 @@ LearnerApp::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
   resources :users
   resources :sessions
+  resources :ratings
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
