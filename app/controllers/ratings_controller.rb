@@ -7,9 +7,9 @@ class RatingsController < ApplicationController
   def create
     @rating = Rating.new(params[:rating])
     if @rating.save
-      redirect_to root_url, :notice => "Rated"
+      render json: @rating
     else
-      render "new"
+      render json: {message: 'fail!'}, status:  :unauthorized
     end
   end
 end

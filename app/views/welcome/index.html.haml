@@ -9,18 +9,21 @@
   #rating-form.hidden
     %button#x-button x
     %h3 Rate This
-    %label Overall Rating
-    %select
-      %option 5
-      %option 4
-      %option 3
-      %option 2
-      %option 1
-    %label Skill Level
-    %select
-      %option Newbie
-      %option Novice
-      %option Advanced
-      %option Expert
-    %input#submit{type: "submit"}
+    %form
+      %label Overall Rating
+      %select#overall-rating
+        %option 5
+        %option 4
+        %option 3
+        %option 2
+        %option 1
+      %label Skill Level
+      %select#skill-level
+        %option newbie
+        %option novice
+        %option advanced
+        %option expert
+      -if current_user
+        %input#user-id{type: "hidden", value: "#{current_user.id}" }
+      %input#submit{type: "submit"}
 
