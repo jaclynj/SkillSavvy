@@ -15,6 +15,8 @@ App.Views.RatingForm = Backbone.View.extend({
     this.resource = new App.Models.Resource();
     this.resources.add(this.resource);
     this.rating = new App.Models.Rating();
+    this.ratings = new App.Collections.Ratings({model: App.Models.Rating});
+    this.ratings.add(this.ratings);
     this.listenTo(this.resource, 'sync', this.createRating);
   },
   closeForm: function(e) {
@@ -27,29 +29,36 @@ App.Views.RatingForm = Backbone.View.extend({
   createResource: function(e) {
     console.log('submitting form...');
     e.preventDefault();
-    this.resources.fetch();
-    var existingResource = this.resources.findWhere({url: this.attributes.url});
-    if (existingResource == null) {
-      this.userId = $('form #user-id').val();
-      this.userId = parseInt(this.userId);
-      this.resource.set({
-        query: this.attributes.query,
-        title: this.attributes.title,
-        url: this.attributes.url,
-        description: this.attributes.description
-        });
-      this.resource.save(null, {
-        success: function(model, response){
-          console.log('saved resource');
-        },
-        error: function(model, response) {
-          console.log(response);
+    this.resources.fetch({
+      success: function(){
+        thisForm = App.ratingForm;
+        //refactor to checkForExistingResource()
+        var existingResource = thisForm.resources.findWhere({url: thisForm.attributes.url});
+        console.log(existingResource);
+        if (existingResource && existingResource != [] && existingResource != null) {
+          thisForm.resource = existingResource;
+          thisForm.createRating();
+        } else {
+          thisForm.userId = $('form #user-id').val();
+          thisForm.userId = parseInt(thisForm.userId);
+          thisForm.resource.set({
+            query: thisForm.attributes.query,
+            title: thisForm.attributes.title,
+            url: thisForm.attributes.url,
+            description: thisForm.attributes.description
+          });
+          thisForm.resource.save(null, {
+            success: function(model, response){
+              console.log('saved resource');
+              console.log(model);
+            },
+            error: function(model, response) {
+              console.log(response);
+            }
+          });
         }
-      });
-    } else {
-      this.resource = existingResource;
-      this.createRating();
-    }
+      }
+    });
   },
   createRating: function() {
     //this should happen only if this users has not rated this resource

@@ -1,4 +1,4 @@
-App.Models.Resources = Backbone.Model.extend({
+App.Models.Search = Backbone.Model.extend({
 
   initialize: function() {
 

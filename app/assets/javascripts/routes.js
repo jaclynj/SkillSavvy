@@ -4,7 +4,7 @@
       },
       initialize: function(){
         Backbone.history.start();
-        new App.Views.Main();
+        App.main = new App.Views.Main();
         // new App.UserSession();
       },
       index: function(){
