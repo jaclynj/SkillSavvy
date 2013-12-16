@@ -33,12 +33,68 @@ App.Views.Main = Backbone.View.extend({
   },
   displayRating: function(){
     var thisRating = App.main.ratingInfo;
+    var len = thisRating.length
     var overall = 0;
+    var newbRating = 0;
+    var novRating = 0;
+    var advRating = 0;
+    var expRating = 0;
     _.each(thisRating, function(rating) {
-      overall = overall + rating.attributes.overall_rating;
+      attr = rating.attributes;
+      overall += attr.overall_rating;
+      if (attr.newbie_rating >= 1) {
+        newbRating += attr.newbie_rating;
+      }
+      if (attr.novice_rating >= 1) {
+        novRating += attr.novice_rating;
+      }
+      if (attr.adv_rating >= 1) {
+        advRating += attr.adv_rating;
+      }
+      if (attr.expert_rating >= 1) {
+        expRating += attr.expert_rating;
+      }
     } );
-    overall = (overall / thisRating.length).toFixed(1);
-    return $('<div>' + "average overall rating: " + overall + '</div>');
+    overall = (overall / len).toFixed(1);
+    newbRating = (newbRating / len).toFixed(1);
+    novRating = (novRating / len).toFixed(1);
+    advRating = (advRating / len).toFixed(1);
+    expRating = (advRating / len).toFixed(1);
+
+    ratingDiv = $('<div>');
+    ratingDiv.append('<h4>Ratings from other learners</h4>');
+    ul = $('<ul>');
+    ul.append('<li>'+ "overall rating: " + overall +'</li>');
+    if (newbRating >= 1) {
+      ul.append('<li>'+ "newbie rating: " + newbRating +'</li>');
+    }
+    if (novRating >= 1) {
+      ul.append('<li>'+ "novice rating: " + novRating +'</li>');
+    }
+    if (advRating >= 1) {
+      ul.append('<li>'+ "advanced rating: " + advRating +'</li>');
+    }
+    if (expRating >= 1) {
+      ul.append('<li>'+ "expert rating: " + expRating +'</li>');
+    }
+    ratingDiv.append(ul);
+    ratingDiv.addClass('ratingDiv col-md-4');
+
+    var rateLink = $('<a>',{
+      text: "Rate This",
+      href: '/ratings/new'
+    });
+    rateLink.addClass('rate-this');
+    var logInLink = $('<a>',{
+      text: "Log In to Rate This",
+      href: '/login'
+    });
+    if (  $("#user-box:contains('Login')").length > 0  ) {
+      ratingDiv.append(logInLink);
+    } else {
+      ratingDiv.append(rateLink);
+    }
+    return ratingDiv;
   },
   displayResults: function(feedObject) {
     //refactor, turn this into a handlebars template
@@ -51,12 +107,14 @@ App.Views.Main = Backbone.View.extend({
     for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
       if (thisResource.link) {
+        var thisResultDiv = $("<div>");
+        thisResultDiv.addClass('results-div');
         var div = $("<div>");
         var existingResource = App.main.resources.findWhere({url: thisResource.link});
         if (existingResource && existingResource != []) {
           App.main.ratingInfo = App.main.ratings.where({resource_id: existingResource.id});
           var ratingDiv = App.main.displayRating();
-          div.append(ratingDiv);
+          thisResultDiv.append(ratingDiv);
         }
         div.addClass("search-results");
         App.main.resourceLink = $('<a>',{
@@ -68,21 +126,8 @@ App.Views.Main = Backbone.View.extend({
         div.append("<br>" + thisResource.content + "<br>");
         //HERE check if exisingResource.user_id == the current user id
         // if so, instead of rateLink or Login link, say you already rated this
-        var rateLink = $('<a>',{
-          text: "Rate This",
-          href: '/ratings/new'
-        });
-        rateLink.addClass('rate-this');
-        var logInLink = $('<a>',{
-          text: "Log In to Rate This",
-          href: '/login'
-        });
-        if (  $("#user-box:contains('Login')").length > 0  ) {
-          div.append(logInLink);
-        } else {
-          div.append(rateLink);
-        }
-        webResults.append(div);
+        thisResultDiv.append(div);
+        webResults.append(thisResultDiv);
       }
     }
     resultsArea.append(webResults);

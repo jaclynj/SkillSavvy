@@ -19,6 +19,17 @@ font-size: 4em;
   font-family: 'Comfortaa', cursive;
 }
 
+#all #results h4 {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1em;
+  padding: 0;
+}
+
+#results .results-div {
+  margin: 10px;
+  padding: 10px;
+}
+
 #results a {
 font-family: 'Comfortaa', cursive;
 font-size: 1.02em;
