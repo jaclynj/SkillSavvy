@@ -131,14 +131,14 @@ App.Views.Main = Backbone.View.extend({
     for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
       if (thisResource.link) {
-        // make it a model
-        var newResourceModel = new App.Models.Resource({
-          description:  thisResource.content,
-          title: thisResource.title,
-          url: thisResource.link
-        });
-        //give it a view
-        var newResourceView = new App.Views.RatingView({model: newResourceModel});
+        // // make it a model
+        // var newResourceModel = new App.Models.Resource({
+        //   description:  thisResource.content,
+        //   title: thisResource.title,
+        //   url: thisResource.link
+        // });
+        // //give it a view
+        // var newResourceView = new App.Views.RatingView({model: newResourceModel});
 
         //refactor, turn this into a handlebars template
         var thisResultDiv = $("<div>");
@@ -147,12 +147,12 @@ App.Views.Main = Backbone.View.extend({
 
         div.addClass("search-results col-md-8");
         App.main.resourceLink = $('<a>',{
-            text: newResourceModel.title,
-            href: newResourceModel.url,
+            text: thisResource.title,
+            href: thisResource.link,
             target: "_blank"
           });
           div.append(App.main.resourceLink);
-        div.append("<br>" + newResourceModel.description + "<br>");
+        div.append("<br>" + thisResource.content + "<br>");
 
         thisResultDiv.append(div);
 
