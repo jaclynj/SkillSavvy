@@ -1,7 +1,8 @@
 #search
   %h1 Welcome
   %h2 What skill do you want to learn or improve on?
-  %input#search-field{ :type => "text", :placeholder => "i.e. play guitar, speak spanish, solve rubix cube"}
+  %form#submit-form
+    %input#search-field{ :type => "text", :placeholder => "i.e. play guitar, speak spanish, solve rubix cube"}
     %button#search-button search resources
 .container
   #results.span6.center

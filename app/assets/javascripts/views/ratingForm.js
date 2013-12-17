@@ -50,7 +50,7 @@ App.Views.RatingForm = Backbone.View.extend({
           thisMain.resource.save(null, {
             success: function(model, response){
               console.log('saved resource');
-              App.main.resource.view.setEl();
+              thisMain.resource.view.setEl();
               console.log(model);
               console.log(model.view.$el);
             },

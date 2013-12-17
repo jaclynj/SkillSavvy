@@ -1,7 +1,7 @@
 App.Views.Main = Backbone.View.extend({
   el: "#search",
   events: {
-    "click button" : "submitSearch"
+    "submit #submit-form" : "submitSearch"
   },
   initialize: function(){
     this.search = new App.Models.Search();
