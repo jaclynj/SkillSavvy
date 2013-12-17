@@ -8,6 +8,15 @@ App.Views.RatingView = Backbone.View.extend({
 
   },
   setEl: function() {
-    this.el = "#rating-" + this.model.id;
+    if (this.model) {
+      $(this.el).attr('id', "rating-" + this.model.id).addClass('rating-div col-md-4');
+    } else {
+
+    }
+  },
+  render: function() {
+    debugger;
+    return this;
   }
+
 });

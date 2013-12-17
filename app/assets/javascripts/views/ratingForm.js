@@ -13,7 +13,7 @@ App.Views.RatingForm = Backbone.View.extend({
   initialize: function(){
     this.resources = new App.Collections.Resources({model: App.Models.Resource});
     this.resource = new App.Models.Resource();
-    this.resource.view = this.ratingView;
+    this.resource.view = new App.Views.RatingView({model: this.resource});
     this.resources.add(this.resource);
     this.rating = new App.Models.Rating();
     this.ratings = new App.Collections.Ratings({model: App.Models.Rating});
@@ -53,6 +53,7 @@ App.Views.RatingForm = Backbone.View.extend({
               thisMain.resource.view.setEl();
               console.log(model);
               console.log(model.view.$el);
+              console.log('created el');
             },
             error: function(model, response) {
               console.log(response);
@@ -68,8 +69,8 @@ App.Views.RatingForm = Backbone.View.extend({
     this.overallRating = $('#overall-rating option:selected').val();
     this.overallRating = parseInt(this.overallRating);
     this.rating.set({
-      resource_id: this.resource.id,
-      user_id: this.userId,
+      resource_id: App.ratingForm.resource.id,
+      user_id: App.ratingForm.userId,
       overall_rating: this.overallRating
       });
     this.setSkillLevel();
@@ -92,11 +93,28 @@ App.Views.RatingForm = Backbone.View.extend({
         newbie_rating: this.overallRating
       });
     }
-
+    var this.rating.currentView = this.rating.view;
     this.rating.save(null, {
       success: function(model, response){
         console.log('saved rating');
-        App.ratingForm.trigger('resetEverything');
+        App.ratingForm.resources.fetch({
+          success: function(m, r) {
+            //append the rating & give the el an id
+            var thisResource = App.ratingForm.resources.findWhere({id: model.attributes.resource_id});
+            console.log(thisResource);
+            var thisRatingDiv = $(thisResource.view.$el);
+
+            var modelArray = App.main.ratings.where({resource_id: thisResource.id});
+            App.main.ratingInfo = modelArray;
+            //
+            //now append the rating
+            var newView = App.main.displayRating(thisRatingDiv);
+            thisResource.view.render();
+            model.currentView.append(newView);
+            //end edits
+            App.ratingForm.trigger('resetEverything');
+          }
+        });
       },
       error: function(model, response) {
         console.log(response);

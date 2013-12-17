@@ -26,16 +26,18 @@ App.Views.Results = Backbone.View.extend({
     }
   },
   reloadResults: function(){
-    //this works
-    //trigger something in main that will run showResults
     console.log('beginning of function');
     console.log(App.main.ratingInfo);
     var resourceId = this.resource.id;
+    var resourceView = this.resource.view;
     App.main.ratings.fetch({
       success: function() {
         App.main.ratingInfo = App.main.ratings.where({resource_id: resourceId});
+        //ratingInfo is a list of ratings for that resource
         console.log(App.main.ratingInfo);
+        console.log(resourceView);
         var thisRatingDiv = $('#rating-' + resourceId);
+        // i want to pass in the rating div that belongs to this resource
         App.main.displayRating(thisRatingDiv);
       }
     });
