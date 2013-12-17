@@ -64,7 +64,19 @@ font-size: 1.02em;
 
 #results {
   background-color: #FFF1F0;
+/*  text-align: center;*/
+}
+
+a.rate-this {
   text-align: center;
+  background-color: #FFACB3;
+  border-radius: 5px;
+}
+
+.rating-div li {
+  text-decoration: none;
+  list-style: none;
+  list-style-type: none;
 }
 
 #throbber {
@@ -77,6 +89,7 @@ font-size: 1.02em;
   margin: 0 auto;
   border-top: 1.5px solid #dedede;
   width: 90%;
+  text-align: left;
 }
 
 .center {
