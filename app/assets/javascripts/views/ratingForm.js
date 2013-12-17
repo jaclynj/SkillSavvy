@@ -13,6 +13,7 @@ App.Views.RatingForm = Backbone.View.extend({
   initialize: function(){
     this.resources = new App.Collections.Resources({model: App.Models.Resource});
     this.resource = new App.Models.Resource();
+    this.resource.view = this.ratingView;
     this.resources.add(this.resource);
     this.rating = new App.Models.Rating();
     this.ratings = new App.Collections.Ratings({model: App.Models.Rating});
@@ -29,28 +30,29 @@ App.Views.RatingForm = Backbone.View.extend({
   createResource: function(e) {
     console.log('submitting form...');
     e.preventDefault();
-    this.resources.fetch({
+    App.main.resources.fetch({
       success: function(){
-        thisForm = App.ratingForm;
-        //refactor to checkForExistingResource()
-        var existingResource = thisForm.resources.findWhere({url: thisForm.attributes.url});
+        thisMain = App.ratingForm;
+        var existingResource = thisMain.resources.findWhere({url: thisMain.attributes.url});
         console.log(existingResource);
         if (existingResource && existingResource != [] && existingResource != null) {
-          thisForm.resource = existingResource;
-          thisForm.createRating();
+          thisMain.resource = existingResource;
+          thisMain.createRating();
         } else {
-          thisForm.userId = $('form #user-id').val();
-          thisForm.userId = parseInt(thisForm.userId);
-          thisForm.resource.set({
-            query: thisForm.attributes.query,
-            title: thisForm.attributes.title,
-            url: thisForm.attributes.url,
-            description: thisForm.attributes.description
+          thisMain.userId = $('form #user-id').val();
+          thisMain.userId = parseInt(thisMain.userId);
+          thisMain.resource.set({
+            query: thisMain.attributes.query,
+            title: thisMain.attributes.title,
+            url: thisMain.attributes.url,
+            description: thisMain.attributes.description
           });
-          thisForm.resource.save(null, {
+          thisMain.resource.save(null, {
             success: function(model, response){
               console.log('saved resource');
+              App.main.resource.view.setEl();
               console.log(model);
+              console.log(model.view.$el);
             },
             error: function(model, response) {
               console.log(response);

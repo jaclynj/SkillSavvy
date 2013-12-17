@@ -42,6 +42,7 @@ App.Views.Main = Backbone.View.extend({
     var novRating = 0;
     var advRating = 0;
     var expRating = 0;
+    console.log(overall)
     _.each(thisRating, function(rating) {
       attr = rating.attributes;
       overall += attr.overall_rating;
@@ -63,6 +64,7 @@ App.Views.Main = Backbone.View.extend({
         expRating += attr.expert_rating;
       }
     } );
+    console.log(overall);
     overall = (overall / len).toFixed(1);
     newbRating = (newbRating / len).toFixed(1);
     novRating = (novRating / len).toFixed(1);
@@ -148,9 +150,9 @@ App.Views.Main = Backbone.View.extend({
         var existingResource = App.main.resources.findWhere({url: thisResource.link});
         var ratingDiv = $('<div>');
         ratingDiv.addClass('ratingDiv col-md-4');
-        ratingDiv.attr("id", "rating-" + existingResource.id);
 
         if (existingResource && existingResource != []) {
+          // ratingDiv = existingResource.view.$el;
           App.main.ratingInfo = App.main.ratings.where({resource_id: existingResource.id});
           var updatedRatingDiv = App.main.displayRating(ratingDiv);
           thisResultDiv.append(updatedRatingDiv);

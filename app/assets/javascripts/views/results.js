@@ -29,12 +29,13 @@ App.Views.Results = Backbone.View.extend({
     //this works
     //trigger something in main that will run showResults
     console.log('beginning of function');
+    console.log(App.main.ratingInfo);
     var resourceId = this.resource.id;
     App.main.ratings.fetch({
       success: function() {
         App.main.ratingInfo = App.main.ratings.where({resource_id: resourceId});
+        console.log(App.main.ratingInfo);
         var thisRatingDiv = $('#rating-' + resourceId);
-        //var thisRatingDiv = this.resource.view.$el
         App.main.displayRating(thisRatingDiv);
       }
     });
