@@ -148,11 +148,12 @@ App.Views.Main = Backbone.View.extend({
         var existingResource = App.main.resources.findWhere({url: thisResource.link});
         var ratingDiv = $('<div>');
         ratingDiv.addClass('ratingDiv col-md-4');
-        ratingDiv.attr("id", "rating-" + existingResource.id);
+
 
         if (existingResource && existingResource != []) {
           App.main.ratingInfo = App.main.ratings.where({resource_id: existingResource.id});
           var updatedRatingDiv = App.main.displayRating(ratingDiv);
+          ratingDiv.attr("id", "rating-" + existingResource.id);
           thisResultDiv.append(updatedRatingDiv);
         }
         var rateThisLink = App.main.displayRateThisLink();
