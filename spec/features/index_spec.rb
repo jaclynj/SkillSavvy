@@ -14,7 +14,17 @@ describe "the signin process", :type => :feature do
     click_button 'Log in'
     expect(page).to have_content 'Logged in!'
   end
+end
 
+describe "the searching process", :type => :feature, :js => true do
+  it "submits search and returns results" do
+    visit '/'
+    within('#submit-form') do
+      fill_in 'search-field', :with => 'play guitar'
+    end
+    click_button 'search resources'
+    expect(page).to have_content 'Learn & Master Guitar'
+  end
 #   describe 'some stuff which requires js', :js => true do
 #   it 'will use the default js driver'
 #   it 'will switch to one specific driver', :driver => :webkit
