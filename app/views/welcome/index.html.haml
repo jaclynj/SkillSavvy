@@ -5,8 +5,7 @@
     %input#search-field{ :type => "text", :placeholder => "i.e. play guitar, speak spanish, solve rubix cube"}
     %button#search-button search resources
 .container
-  #results.span6.center
-    #throbber.hidden=image_tag('ajax-loader.gif', height: '25')
+
   #rating-form.hidden
     %button#x-button x
     %h3 Rate This
@@ -27,4 +26,10 @@
       -if current_user
         %input#user-id{type: "hidden", value: "#{current_user.id}" }
       %input#submit{type: "submit"}
+
+  #results.span6.center
+    #throbber.hidden=image_tag('ajax-loader.gif', height: '25')
+    #web-results
+      %div
+
 

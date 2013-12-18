@@ -19,7 +19,7 @@ App.Views.Main = Backbone.View.extend({
     App.main.updateResources();
   },
   updateResources: function() {
-    $('#results').html($('#throbber'));
+    // $('#results').html($('#throbber'));
     $('#throbber').removeClass('hidden');
     console.log(App.main.resources);
     App.main.resources.fetch({
@@ -127,9 +127,11 @@ App.Views.Main = Backbone.View.extend({
     console.log('displaying results');
     $('#throbber').addClass('hidden');
     var resultsArea = $('#results');
+    var webResultsOnPage = $('#web-results');
     var webResults = $("<div>");
+    webResultsOnPage.html(webResults);
     webResults.append("<h3>Search</h3>");
-    webResults.attr("id", "web-results");
+    webResults.attr("id", "these-web-results");
 
     for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
@@ -168,7 +170,7 @@ App.Views.Main = Backbone.View.extend({
         webResults.append(thisResultDiv);
       }
     }
-    resultsArea.append(webResults);
+    webResultsOnPage.append(webResults);
   }
 });
 
