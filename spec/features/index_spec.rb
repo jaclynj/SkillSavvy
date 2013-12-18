@@ -1,20 +1,22 @@
-# describe "the signin process", :type => :feature do
-#   before :each do
-#     User.make(:email => 'user@example.com', :password => 'caplin')
-#   end
+require "spec_helper"
 
-#   it "signs me in" do
-#     visit '/sessions/new'
-#     within("#session") do
-#       fill_in 'Login', :with => 'user@example.com'
-#       fill_in 'Password', :with => 'password'
-#     end
-#     click_link 'Sign in'
-#     expect(page).to have_content 'Success'
-#   end
+describe "the signin process", :type => :feature do
+  before :each do
+    User.create(:email => 'user@example.com', :password => 'caplin')
+  end
+
+  it "signs me in" do
+    visit '/login'
+    within("#log-in") do
+      fill_in 'email', :with => 'user@example.com'
+      fill_in 'password', :with => 'caplin'
+    end
+    click_button 'Log in'
+    expect(page).to have_content 'Logged in!'
+  end
 
 #   describe 'some stuff which requires js', :js => true do
 #   it 'will use the default js driver'
 #   it 'will switch to one specific driver', :driver => :webkit
 # end
-# end
+end
