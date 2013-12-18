@@ -96,7 +96,7 @@ App.Views.RatingForm = Backbone.View.extend({
       });
     } else {
       this.rating.set({
-        newbie_rating: this.overallRating
+        expert_rating: this.overallRating
       });
     }
     this.rating.save(null, {

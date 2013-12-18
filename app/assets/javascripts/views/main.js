@@ -40,49 +40,53 @@ App.Views.Main = Backbone.View.extend({
   },
   displayRating: function(div){
     //this is called in displayResults
-      div.html('');
-      ratingDiv = div;
-      var theseRatings = App.main.ratingInfo;
-      var len = theseRatings.length;
-      var overall = 0;
-      var newbRating = 0;
-      var novRating = 0;
-      var advRating = 0;
-      var expRating = 0;
-      console.log(overall);
-      _.each(theseRatings, function(rating) {
-        attr = rating.attributes;
-        overall += attr.overall_rating;
-      });
-        //these dont work because its dividing the full length
-        // use _.filter or _.where to find the info you need for each list
-        // figure out how to make it work since these are in attr and not properties
-        // right now the ones below dont show up because they've been rated but
-        // they are less than 1, because there are too many other ratings in the array
-        var newbieRatings = _.filter(theseRatings, function(r){
-            return r.attributes.newbie_rating > 0;
-          });
+    div.html('');
+    ratingDiv = div;
+    var theseRatings = App.main.ratingInfo;
+    var len = theseRatings.length;
+    var overall = 0;
+    var newbRating = 0;
+    var novRating = 0;
+    var advRating = 0;
+    var expRating = 0;
 
-        _.each(newbieRatings, function(rating){
-          newbRating += attr.newbie_rating;
-        });
-        //  THIS DOESNT MAKE ANY GODDAMN SENSE
-        // }
-        // if (attr.novice_rating >= 1) {
-        //   novRating += attr.novice_rating;
-        // }
-        // if (attr.adv_rating >= 1) {
-        //   advRating += attr.adv_rating;
-        // }
-        // if (attr.expert_rating >= 1) {
-        //   expRating += attr.expert_rating;
-        // }
+    _.each(theseRatings, function(rating) {
+      var attr = rating.attributes;
+      overall += attr.overall_rating;
+    });
+
+    var newbieRatings = _.filter(theseRatings, function(r){
+      return r.attributes.newbie_rating > 0;
+    });
+
+    var noviceRatings = _.filter(theseRatings, function(r){
+      return r.attributes.novice_rating > 0;
+    });
+
+    var advancedRatings = _.filter(theseRatings, function(r){
+      return r.attributes.adv_rating > 0;
+    });
+    var expertRatings = _.filter(theseRatings, function(r){
+      return r.attributes.expert_rating > 0;
+    });
+    _.each(newbieRatings, function(rating){
+      newbRating += rating.attributes.newbie_rating;
+    });
+    _.each(noviceRatings, function(rating){
+      novRating += rating.attributes.novice_rating;
+    });
+    _.each(advancedRatings, function(rating){
+      advRating += rating.attributes.adv_rating;
+    });
+    _.each(expertRatings, function(rating){
+      expRating += rating.attributes.expert_rating;
+    });
 
       overall = (overall / len).toFixed(1);
       newbRating = (newbRating / newbieRatings.length).toFixed(1);
-      // novRating = (novRating / len).toFixed(1);
-      // advRating = (advRating / len).toFixed(1);
-      // expRating = (advRating / len).toFixed(1);
+      novRating = (novRating / noviceRatings.length).toFixed(1);
+      advRating = (advRating / advancedRatings.length).toFixed(1);
+      expRating = (expRating / expertRatings.length).toFixed(1);
 
 
       ratingDiv.append('<h4>Ratings from other learners</h4>');
@@ -92,17 +96,17 @@ App.Views.Main = Backbone.View.extend({
       if (newbRating >= 1) {
         ul.append('<li>'+ "newbie rating: " + newbRating +'</li>');
       }
-      // if (novRating >= 1) {
-      //   ul.append('<li>'+ "novice rating: " + novRating +'</li>');
-      // }
+      if (novRating >= 1) {
+        ul.append('<li>'+ "novice rating: " + novRating +'</li>');
+      }
 
-      // if (advRating >= 1) {
-      //   ul.append('<li>'+ "advanced rating: " + advRating +'</li>');
-      // }
+      if (advRating >= 1) {
+        ul.append('<li>'+ "advanced rating: " + advRating +'</li>');
+      }
 
-      // if (expRating >= 1) {
-      //   ul.append('<li>'+ "expert rating: " + expRating +'</li>');
-      // }
+      if (expRating >= 1) {
+        ul.append('<li>'+ "expert rating: " + expRating +'</li>');
+      }
 
       ratingDiv.append(ul);
       //returns the div as a jquery object
