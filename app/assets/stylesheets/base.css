@@ -9,6 +9,9 @@
 #all h1 {
 font-family: 'Comfortaa', cursive;
 font-size: 4em;
+padding-top: .5%;
+padding-bottom: 0;
+margin: .5%;
 }
 
 #all h2 {
@@ -17,6 +20,7 @@ font-size: 4em;
 
 #all h3 {
   font-family: 'Comfortaa', cursive;
+  margin: 0 0 2% 0;
 }
 
 #all #results h4 {
