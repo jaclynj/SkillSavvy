@@ -2,7 +2,7 @@ App.Views.RatingForm = Backbone.View.extend({
   el:"#rating-form",
   events: {
     "click button#x-button" : "closeForm",
-    "click #submit" : "createResource"
+    "click #submit" : "assignResource"
   },
   attributes: {
     //this.attributes.query
@@ -25,9 +25,14 @@ App.Views.RatingForm = Backbone.View.extend({
     }
     console.log('closing form');
     this.$el.addClass('hidden');
+    this.undelegateEvents();
   },
-  createResource: function(e) {
+  assignResource: function(e) {
+    console.log('im in the assign resource function');
     //creates or finds resource if it exists
+    if (e) {
+      e.preventDefault();
+    };
     this.closeForm();
     console.log('submitting form...');
     e.preventDefault();
@@ -36,9 +41,11 @@ App.Views.RatingForm = Backbone.View.extend({
         thisMain = App.ratingForm;
         var existingResource = App.main.resources.findWhere({url: thisMain.attributes.url});
         if (existingResource && existingResource != [] && existingResource != null) {
+          console.log('finding resource in db');
           thisMain.resource = existingResource;
           thisMain.createRating();
         } else {
+          console.log('creating resource');
           thisMain.userId = $('form #user-id').val();
           thisMain.userId = parseInt(thisMain.userId);
           thisMain.resource.set({
