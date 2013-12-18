@@ -47,6 +47,7 @@ group :development, :test do
   gem "selenium-webdriver"
   gem "jasmine"
   gem "pry-rails"
+  gem 'coveralls', require: false
 end
 
 group :development do
