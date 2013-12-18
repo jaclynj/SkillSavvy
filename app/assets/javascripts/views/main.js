@@ -42,41 +42,47 @@ App.Views.Main = Backbone.View.extend({
     //this is called in displayResults
       div.html('');
       ratingDiv = div;
-      var thisRating = App.main.ratingInfo;
-      var len = thisRating.length;
+      var theseRatings = App.main.ratingInfo;
+      var len = theseRatings.length;
       var overall = 0;
       var newbRating = 0;
       var novRating = 0;
       var advRating = 0;
       var expRating = 0;
       console.log(overall);
-      _.each(thisRating, function(rating) {
+      _.each(theseRatings, function(rating) {
         attr = rating.attributes;
         overall += attr.overall_rating;
+      });
         //these dont work because its dividing the full length
         // use _.filter or _.where to find the info you need for each list
         // figure out how to make it work since these are in attr and not properties
         // right now the ones below dont show up because they've been rated but
         // they are less than 1, because there are too many other ratings in the array
-        if (attr.newbie_rating >= 1) {
+        var newbieRatings = _.filter(theseRatings, function(r){
+            return r.attributes.newbie_rating > 0;
+          });
+
+        _.each(newbieRatings, function(rating){
           newbRating += attr.newbie_rating;
-        }
-        if (attr.novice_rating >= 1) {
-          novRating += attr.novice_rating;
-        }
-        if (attr.adv_rating >= 1) {
-          advRating += attr.adv_rating;
-        }
-        if (attr.expert_rating >= 1) {
-          expRating += attr.expert_rating;
-        }
-      } );
-      console.log(overall);
+        });
+        //  THIS DOESNT MAKE ANY GODDAMN SENSE
+        // }
+        // if (attr.novice_rating >= 1) {
+        //   novRating += attr.novice_rating;
+        // }
+        // if (attr.adv_rating >= 1) {
+        //   advRating += attr.adv_rating;
+        // }
+        // if (attr.expert_rating >= 1) {
+        //   expRating += attr.expert_rating;
+        // }
+
       overall = (overall / len).toFixed(1);
-      newbRating = (newbRating / len).toFixed(1);
-      novRating = (novRating / len).toFixed(1);
-      advRating = (advRating / len).toFixed(1);
-      expRating = (advRating / len).toFixed(1);
+      newbRating = (newbRating / newbieRatings.length).toFixed(1);
+      // novRating = (novRating / len).toFixed(1);
+      // advRating = (advRating / len).toFixed(1);
+      // expRating = (advRating / len).toFixed(1);
 
 
       ratingDiv.append('<h4>Ratings from other learners</h4>');
@@ -86,18 +92,17 @@ App.Views.Main = Backbone.View.extend({
       if (newbRating >= 1) {
         ul.append('<li>'+ "newbie rating: " + newbRating +'</li>');
       }
+      // if (novRating >= 1) {
+      //   ul.append('<li>'+ "novice rating: " + novRating +'</li>');
+      // }
 
-      if (novRating >= 1) {
-        ul.append('<li>'+ "novice rating: " + novRating +'</li>');
-      }
+      // if (advRating >= 1) {
+      //   ul.append('<li>'+ "advanced rating: " + advRating +'</li>');
+      // }
 
-      if (advRating >= 1) {
-        ul.append('<li>'+ "advanced rating: " + advRating +'</li>');
-      }
-
-      if (expRating >= 1) {
-        ul.append('<li>'+ "expert rating: " + expRating +'</li>');
-      }
+      // if (expRating >= 1) {
+      //   ul.append('<li>'+ "expert rating: " + expRating +'</li>');
+      // }
 
       ratingDiv.append(ul);
       //returns the div as a jquery object
