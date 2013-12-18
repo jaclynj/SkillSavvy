@@ -9,8 +9,6 @@ App.Views.Main = Backbone.View.extend({
   },
   submitSearch: function(e){
     e.preventDefault();
-    $('#results').html($('#throbber'));
-    $('#throbber').toggle();
     this.query = $('#search-field').val();
     this.search.searchWeb(this.query);
   },
@@ -18,24 +16,31 @@ App.Views.Main = Backbone.View.extend({
     this.results = new App.Views.Results({ el:"#results", attributes:{query: this.query} });
     App.main.resources = new App.Collections.Resources({model: App.Models.Resource});
     App.main.ratings = new App.Collections.Ratings({model: App.Models.Rating});
+    App.main.updateResources();
+  },
+  updateResources: function() {
+    $('#results').html($('#throbber'));
+    $('#throbber').removeClass('hidden');
+    console.log(App.main.resources);
     App.main.resources.fetch({
       success: function() {
+        console.log(App.main.resources);
         App.main.updateRatings();
       }
     });
   },
   updateRatings: function(){
+    console.log(App.main.ratings);
     App.main.ratings.fetch({
       success: function() {
+        console.log(App.main.ratings);
         App.main.search.webSearch.get(App.main.displayResults);
       }
     });
   },
   displayRating: function(div){
     //this is called in displayResults
-    App.main.resources.fetch({
-      success: function() {
-        div.html('');
+      div.html('');
       ratingDiv = div;
       var thisRating = App.main.ratingInfo;
       var len = thisRating.length;
@@ -97,8 +102,6 @@ App.Views.Main = Backbone.View.extend({
       ratingDiv.append(ul);
       //returns the div as a jquery object
       return ratingDiv;
-      }
-    });
   },
   displayRateThisLink: function() {
     var rateLink = $('<a>',{
@@ -122,7 +125,7 @@ App.Views.Main = Backbone.View.extend({
   displayResults: function(feedObject) {
     //this is the setup
     console.log('displaying results');
-    $('#throbber').toggle();
+    $('#throbber').addClass('hidden');
     var resultsArea = $('#results');
     var webResults = $("<div>");
     webResults.append("<h3>Search</h3>");
@@ -131,15 +134,6 @@ App.Views.Main = Backbone.View.extend({
     for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
       if (thisResource.link) {
-        // // make it a model
-        // var newResourceModel = new App.Models.Resource({
-        //   description:  thisResource.content,
-        //   title: thisResource.title,
-        //   url: thisResource.link
-        // });
-        // //give it a view
-        // var newResourceView = new App.Views.RatingView({model: newResourceModel});
-
         //refactor, turn this into a handlebars template
         var thisResultDiv = $("<div>");
         thisResultDiv.addClass('results-div row');
@@ -161,19 +155,13 @@ App.Views.Main = Backbone.View.extend({
         ratingDiv.addClass('rating-div col-md-4');
 
         if (existingResource && existingResource != []) {
-          // ratingDiv = existingResource.view.$el;
+
           App.main.ratingInfo = App.main.ratings.where({resource_id: existingResource.id});
           ratingDiv.attr("id", "rating-" + existingResource.id);
           var updatedRatingDiv = App.main.displayRating(ratingDiv);
           thisResultDiv.append(updatedRatingDiv);
         } else {
-          ratingDiv.attr("id", thisResource.link);
           thisResultDiv.append(ratingDiv);
-          //
-          //if i created a model it should have a view
-          // so i can do this model.view append the way that i'm appending the ratingDiv
-          //right now i'm inside a feedobject though
-          //feedobject doesnt become a model until someone clicks submit on the form
         }
         var rateThisLink = App.main.displayRateThisLink();
           div.append(rateThisLink);

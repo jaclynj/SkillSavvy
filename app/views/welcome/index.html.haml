@@ -6,7 +6,7 @@
     %button#search-button search resources
 .container
   #results.span6.center
-    =image_tag('ajax-loader.gif', height: '25', id: 'throbber')
+    #throbber.hidden=image_tag('ajax-loader.gif', height: '25')
   #rating-form.hidden
     %button#x-button x
     %h3 Rate This

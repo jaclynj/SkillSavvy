@@ -27,20 +27,21 @@ App.Views.Results = Backbone.View.extend({
   },
   reloadResults: function(){
     console.log('beginning of function');
-    console.log(App.main.ratingInfo);
-    var resourceId = this.resource.id;
-    var resourceView = this.resource.view;
-    App.main.ratings.fetch({
-      success: function() {
-        App.main.ratingInfo = App.main.ratings.where({resource_id: resourceId});
-        //ratingInfo is a list of ratings for that resource
-        console.log(App.main.ratingInfo);
-        console.log(resourceView);
-        var thisRatingDiv = $('#rating-' + resourceId);
-        // i want to pass in the rating div that belongs to this resource
-        App.main.displayRating(thisRatingDiv);
-      }
-    });
+
+    //just reload the whole thing!
+    App.main.updateResources();
+    // debugger;
+    // var resourceId = this.resource.id;
+    // App.main.ratings.fetch({
+    //   success: function() {
+    //     App.main.ratingInfo = App.main.ratings.where({resource_id: resourceId});
+    //     //ratingInfo is a list of ratings for that resource
+    //     console.log(App.main.ratingInfo);
+    //     var thisRatingDiv = $('#rating-' + resourceId);
+    //     // i want to pass in the rating div that belongs to this resource
+    //     App.main.displayRating(thisRatingDiv);
+    //   }
+    // });
     // instead of creating a new rating div, clear and append to 'rating-97' or whatever
     console.log('after the function');
   }
