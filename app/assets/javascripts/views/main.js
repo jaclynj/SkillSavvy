@@ -19,8 +19,10 @@ App.Views.Main = Backbone.View.extend({
     App.main.updateResources();
   },
   updateResources: function() {
-    // $('#results').html($('#throbber'));
-    $('#throbber').removeClass('hidden');
+    $('#web-results').fadeOut( 100, function() {
+      $('#throbber').removeClass('hidden');
+    });
+
     console.log(App.main.resources);
     App.main.resources.fetch({
       success: function() {
@@ -123,7 +125,7 @@ App.Views.Main = Backbone.View.extend({
       href: '/login'
     });
 
-    rateLink.addClass('rate-this col-md-8');
+    rateLink.addClass('rate-this');
 
     if (  $("#user-box:contains('Login')").length > 0  ) {
       return logInLink;
@@ -133,13 +135,14 @@ App.Views.Main = Backbone.View.extend({
   },
   displayResults: function(feedObject) {
     //this is the setup
+
     console.log('displaying results');
     $('#throbber').addClass('hidden');
     var resultsArea = $('#results');
     var webResultsOnPage = $('#web-results');
     var webResults = $("<div>");
     webResultsOnPage.html(webResults);
-    webResults.append("<h3>Search</h3>");
+    webResultsOnPage.prepend("<h3>Results</h3>");
     webResults.attr("id", "these-web-results");
 
     for (var i=0; i < feedObject.entries.length; i++) {
@@ -157,7 +160,7 @@ App.Views.Main = Backbone.View.extend({
             target: "_blank"
           });
           div.append(App.main.resourceLink);
-        div.append("<br>" + thisResource.content + "<br>");
+        div.append("<br>" + thisResource.content);
 
         thisResultDiv.append(div);
 
@@ -180,6 +183,7 @@ App.Views.Main = Backbone.View.extend({
       }
     }
     webResultsOnPage.append(webResults);
+    $('#web-results').fadeIn( 300);
   }
 });
 

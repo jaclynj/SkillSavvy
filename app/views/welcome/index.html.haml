@@ -1,14 +1,25 @@
-#search
+#search-header
+  = link_to "Home", root_path
+  |
+  -if current_user
+    Logged in as:
+    = current_user.email
+    |
+    =link_to "Log Out", logout_path
+  -else
+    = link_to "Sign Up", signup_path
+    |
+    = link_to "Login", login_path
+
   %h1 a·bil·i·me
   %h3 Strengthen your abilities
-  %br
+#search
   %h2 What skill do you want to learn or improve on?
   %form#submit-form
     %input#search-field{ :name => 'search-field', :type => "text", :placeholder => "i.e. play guitar, speak spanish, solve rubix cube"}
-    %button#search-button search resources
+    %button#search-button.btn-custom search resources
 .container
-
-  #rating-form.hidden
+  #rating-form.hidden.modal-content.col-md-3
     %button#x-button x
     %h3 Rate This
     %form
@@ -19,6 +30,7 @@
         %option 3
         %option 2
         %option 1
+      %br
       %label Skill Level
       %select#skill-level
         %option newbie
@@ -27,6 +39,7 @@
         %option expert
       -if current_user
         %input#user-id{type: "hidden", value: "#{current_user.id}" }
+      %br
       %input#submit{type: "submit"}
 
   #results.span6.center

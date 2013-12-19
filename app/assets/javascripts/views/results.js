@@ -11,9 +11,7 @@ App.Views.Results = Backbone.View.extend({
       e.preventDefault();
       //displays and moves rating box
       var rating = $('#rating-form');
-      var newTop = e.currentTarget.offsetTop - 80;
-      var newLeft = e.currentTarget.offsetLeft + 100;
-      rating.css({top:newTop, left: newLeft});
+      // var newLeft = e.currentTarget.offsetLeft + 100;
       //passes attributes of resource to rating form
       var item = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[0]);
       var bod = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[2]);
@@ -26,23 +24,8 @@ App.Views.Results = Backbone.View.extend({
     }
   },
   reloadResults: function(){
-    console.log('beginning of function');
-
-    //just reload the whole thing!
+    console.log('before reloading');
     App.main.updateResources();
-    // debugger;
-    // var resourceId = this.resource.id;
-    // App.main.ratings.fetch({
-    //   success: function() {
-    //     App.main.ratingInfo = App.main.ratings.where({resource_id: resourceId});
-    //     //ratingInfo is a list of ratings for that resource
-    //     console.log(App.main.ratingInfo);
-    //     var thisRatingDiv = $('#rating-' + resourceId);
-    //     // i want to pass in the rating div that belongs to this resource
-    //     App.main.displayRating(thisRatingDiv);
-    //   }
-    // });
-    // instead of creating a new rating div, clear and append to 'rating-97' or whatever
-    console.log('after the function');
+    console.log('after reloading');
   }
 });
