@@ -100,10 +100,11 @@ font-size: 1.02em;
   z-index: 1000;
   padding: 0.5% 1%;
   padding-bottom: 1%;
-  border: 1px solid #dedede;
+  border: 1px solid #F3993E;
   border-radius: 5px;
   position: fixed;
-  left: 35%;
+  left: 34%;
+  margin: 4%;
   background-color: #FBFBFB;
   opacity: 0.95;
 }

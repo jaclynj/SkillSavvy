@@ -21,6 +21,9 @@ App.Views.Results = Backbone.View.extend({
       App.ratingForm = new App.Views.RatingForm({attributes:{query: this.attributes.query, title: resourceName, url: resourceLink, description: resourceBody} });
       App.ratingForm.on('resetEverything', this.reloadResults);
       rating.removeClass('hidden');
+      // rating.css('display', 'inline-block');
+      // rating.css('opacity', '1');
+      rating.fadeIn(320);
     }
   },
   reloadResults: function(){

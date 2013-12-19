@@ -24,8 +24,10 @@ App.Views.RatingForm = Backbone.View.extend({
       e.preventDefault();
     }
     console.log('closing form');
-    this.$el.addClass('hidden');
-    this.undelegateEvents();
+    this.$el.fadeOut(200, function(){
+      App.ratingForm.$el.addClass('hidden');
+      App.ratingForm.undelegateEvents();
+    });
   },
   assignResource: function(e) {
     console.log('im in the assign resource function');
