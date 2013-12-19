@@ -7,7 +7,9 @@
 }
 
 #all h1 {
-font-family: 'Comfortaa', cursive;
+/*font-family: 'Comfortaa', cursive;*/
+font-family: 'Ameranth', sans-serif;
+font-weight: bold;
 font-size: 3.5em;
 padding-top: .5%;
 padding-bottom: 0;
@@ -19,12 +21,17 @@ margin: .5%;
 }
 
 #all h3 {
-  font-family: 'Comfortaa', cursive;
+/*font-family: 'Comfortaa', cursive;*/
+font-family: 'Ameranth', sans-serif;
+font-size: 1.5em;
+/*font-weight: bold;*/
   margin: 0 0 2% 0;
 }
 
 #all #results h4 {
-  font-family: 'Comfortaa', cursive;
+/*font-family: 'Comfortaa', cursive;*/
+font-family: 'Ameranth', sans-serif;
+font-weight: bold;
   font-size: 1em;
   padding: 0;
 }
@@ -35,16 +42,27 @@ margin: .5%;
   padding-bottom: 0.5%;
 }
 
-#search-header, #user-box {
-  background-color: #F3993E;
+#search-header, #flash {
+  background-color: #FFA141;
   color: #fbfbfb;
   margin: 0;
   padding: 0;
+}
+
+#search-header {
   border-bottom: 1px solid #7F4609;
 }
 
 #user-box {
-  color: #5F95C9;
+  background-color: #FFA141;
+  padding: 0.1%;
+  color: #5F95C9
+}
+
+#sign-up, #log-in {
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*#results .results-div {
@@ -56,7 +74,8 @@ margin: .5%;
 }
 
 #results a {
-font-family: 'Comfortaa', cursive;
+/*font-family: 'Comfortaa', cursive;*/
+font-family: 'Ameranth', sans-serif;
 font-size: 1.02em;
 }
 
@@ -107,6 +126,16 @@ font-size: 1.02em;
   margin: 4%;
   background-color: #FBFBFB;
   opacity: 0.95;
+}
+
+#overall-rating {
+  border-bottom: 1px solid #402304;
+  color: blue;
+}
+
+.rating-div li:first-child {
+  text-decoration: underline;
+  font-size: 1.08em;
 }
 
 .hidden {

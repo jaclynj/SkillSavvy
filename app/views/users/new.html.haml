@@ -1,24 +1,42 @@
+#user-box
+  = link_to "Home", root_path
+  |
+  -if current_user
+    Logged in as:
+    = current_user.email
+    |
+    =link_to "Log Out", logout_path
+  -else
+    = link_to "Sign Up", signup_path
+    |
+    = link_to "Login", login_path
+%br
+
 %h1 Sign Up
-#sign-up
-.form-horizontal.col-md-7{role: 'form'}
-  =form_for @user do |f|
-    =if @user.errors.any?
-      %div.error_messages
-        %h2 Form is invalid
-        %ul
-          -for message in @user.errors.full_messages
-            %li= message.to_s
-    %p
-      =f.label :email
-      =f.email_field :email
-    %p
-      =f.label :password
-      =f.password_field :password
-    %p
-      =f.label :password_confirmation
-      =f.password_field :password_confirmation
-    %p
-      =f.submit
+%br
+.row
+  #sign-up.col-md-3
+    .form-horizontal.span5{role: 'form'}
+      .form-group
+        =form_for @user do |f|
+          =if @user.errors.any?
+            %div.error_messages
+              %h2 Form is invalid
+              %ul
+                -for message in @user.errors.full_messages
+                  %li= message.to_s
+          %p
+            =f.label :email
+            =f.email_field :email
+          %p
+            =f.label :password
+            =f.password_field :password
+          %p
+            =f.label :password_confirmation
+            =f.password_field :password_confirmation
+          %br
+          %p
+            =f.submit
 
 
 

@@ -1,15 +1,16 @@
 #search-header
-  = link_to "Home", root_path
-  |
-  -if current_user
-    Logged in as:
-    = current_user.email
+  #user-box
+    = link_to "Home", root_path
     |
-    =link_to "Log Out", logout_path
-  -else
-    = link_to "Sign Up", signup_path
-    |
-    = link_to "Login", login_path
+    -if current_user
+      Logged in as:
+      = current_user.email
+      |
+      =link_to "Log Out", logout_path
+    -else
+      = link_to "Sign Up", signup_path
+      |
+      = link_to "Login", login_path
 
   %h1 a·bil·i·me
   %h3 Strengthen your abilities

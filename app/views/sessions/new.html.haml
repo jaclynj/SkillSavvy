@@ -1,12 +1,29 @@
+#user-box
+  = link_to "Home", root_path
+  |
+  -if current_user
+    Logged in as:
+    = current_user.email
+    |
+    =link_to "Log Out", logout_path
+  -else
+    = link_to "Sign Up", signup_path
+    |
+    = link_to "Login", login_path
+%br
 %h1 Log In
-#log-in
-  .form-horizontal.col-md-7{role: 'form'}
-    = form_tag sessions_path do
-      .field
-        = label_tag :email
-        = email_field_tag :email, params[:email]
-        .field
-        = label_tag :password
-        = password_field_tag :password, params[:password]
-      .actions
-        =submit_tag "Log in"
+%br
+.row
+  #log-in.col-md-2
+    .form-horizontal.span5{role: 'form'}
+      .form-group
+        = form_tag sessions_path do
+          .field
+            = label_tag :email
+            = email_field_tag :email, params[:email]
+          .field
+            = label_tag :password
+            = password_field_tag :password, params[:password]
+          %br
+          .actions
+            =submit_tag "Log in"
