@@ -155,7 +155,7 @@ font-size: 1.02em;
   height: 35px;
 }
 
-.btn-custom, .rate-this {
+.btn-custom, .rate-this, .add-rating {
   background-color: hsl(30, 89%, 60%) !important;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f9cc9e", endColorstr="#f3993e");
@@ -175,13 +175,13 @@ font-size: 1.02em;
   margin-left: 1%;
 }
 
-.rate-this {
+.rate-this, .add-rating {
   padding: .05% 1%;
   border: 1px solid #F3993E;
   display: inline-block;
 }
 
-.btn-custom:hover, .rate-this:hover {
+.btn-custom:hover, .rate-this:hover, .add-rating:hover {
   background-color: hsl(30, 89%, 55%) !important;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f7bf86", endColorstr="#f28c26");

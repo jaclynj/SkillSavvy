@@ -126,6 +126,7 @@ App.Views.Main = Backbone.View.extend({
     });
 
     rateLink.addClass('rate-this');
+    logInLink.addClass('add-rating');
 
     if (  $("#user-box:contains('Login')").length > 0  ) {
       return logInLink;

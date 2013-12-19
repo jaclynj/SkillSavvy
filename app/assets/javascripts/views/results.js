@@ -30,5 +30,7 @@ App.Views.Results = Backbone.View.extend({
     console.log('before reloading');
     App.main.updateResources();
     console.log('after reloading');
+    var successMessage = $("<h4 style='color:#FFA141; font-size: 1.4em'>successfully rated!</h4>");
+    $('#results').prepend(successMessage);
   }
 });
