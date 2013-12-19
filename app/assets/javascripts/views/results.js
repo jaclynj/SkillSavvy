@@ -28,9 +28,13 @@ App.Views.Results = Backbone.View.extend({
   },
   reloadResults: function(){
     console.log('before reloading');
+    $('#successful-rating').fadeOut(100);
     App.main.updateResources();
     console.log('after reloading');
-    var successMessage = $("<h4 style='color:#FFA141; font-size: 1.4em'>successfully rated!</h4>");
-    $('#results').prepend(successMessage);
+    App.main.results.ratedSuccess();
+  },
+  ratedSuccess: function() {
+    var successMessage = $('#successful-rating');
+    successMessage.fadeIn(600);
   }
 });

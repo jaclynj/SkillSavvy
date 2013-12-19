@@ -8,6 +8,7 @@ App.Views.Main = Backbone.View.extend({
     this.listenTo(this.search, 'gotResults', this.showResults);
   },
   submitSearch: function(e){
+    $('#successful-rating').fadeOut(100);
     e.preventDefault();
     this.query = $('#search-field').val();
     this.search.searchWeb(this.query);
@@ -136,7 +137,6 @@ App.Views.Main = Backbone.View.extend({
   },
   displayResults: function(feedObject) {
     //this is the setup
-
     console.log('displaying results');
     $('#throbber').addClass('hidden');
     var resultsArea = $('#results');

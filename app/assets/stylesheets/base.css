@@ -53,6 +53,12 @@ font-weight: bold;
   border-bottom: 1px solid #7F4609;
 }
 
+#successful-rating {
+  color:#FFA141;
+  font-size: 1.4em;
+  display: none;
+}
+
 #user-box {
   background-color: #FFA141;
   padding: 0.1%;
