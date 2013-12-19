@@ -128,10 +128,10 @@ font-size: 1.02em;
   opacity: 0.95;
 }
 
-#overall-rating {
+/*#overall-rating {
   border-bottom: 1px solid #402304;
-  color: blue;
-}
+/*  color: blue;*/
+
 
 .rating-div li:first-child {
   text-decoration: underline;
