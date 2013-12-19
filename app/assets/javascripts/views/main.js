@@ -167,7 +167,7 @@ App.Views.Main = Backbone.View.extend({
 
         var existingResource = App.main.resources.findWhere({url: thisResource.link});
         var ratingDiv = $('<div>');
-        ratingDiv.addClass('rating-div col-md-4');
+        ratingDiv.addClass('rating-div col-md-3');
 
         if (existingResource && existingResource != []) {
 
