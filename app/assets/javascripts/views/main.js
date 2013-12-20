@@ -93,25 +93,25 @@ App.Views.Main = Backbone.View.extend({
 
 
       ratingDiv.append('<h4>Ratings from other learners</h4>');
-      var ul = $('<ul>');
+      var tb = $('<table>');
 
-      ul.append('<li>'+ "overall rating: " + overall +'</li>');
+      tb.append('<tr>'+ '<td>' + "overall rating: " + '</td><td>' + overall + '</td>' +'</tr>');
       if (newbRating >= 1) {
-        ul.append('<li>'+ "newbie rating: " + newbRating +'</li>');
+        tb.append('<tr>'+ '<td>' + "newbie rating: " + '</td><td>' + newbRating + '</td>' +'</tr>');
       }
       if (novRating >= 1) {
-        ul.append('<li>'+ "novice rating: " + novRating +'</li>');
+        tb.append('<tr>'+ '<td>' + "novice rating: " + '</td><td>' + novRating + '</td>' +'</tr>');
       }
 
       if (advRating >= 1) {
-        ul.append('<li>'+ "advanced rating: " + advRating +'</li>');
+        tb.append('<tr>'+ '<td>' + "advanced rating: " + '</td><td>' + advRating + '</td>' +'</tr>');
       }
 
       if (expRating >= 1) {
-        ul.append('<li>'+ "expert rating: " + expRating +'</li>');
+        tb.append('<tr>'+ '<td>' + "expert rating: " + '</td><td>' + expRating + '</td>' +'</tr>');
       }
 
-      ratingDiv.append(ul);
+      ratingDiv.append(tb);
       //returns the div as a jquery object
       return ratingDiv;
   },
@@ -160,6 +160,7 @@ App.Views.Main = Backbone.View.extend({
             href: thisResource.link,
             target: "_blank"
           });
+        App.main.resourceLink.addClass('resource-link');
           div.append(App.main.resourceLink);
         div.append("<br>" + thisResource.content);
 
@@ -176,6 +177,7 @@ App.Views.Main = Backbone.View.extend({
           var updatedRatingDiv = App.main.displayRating(ratingDiv);
           thisResultDiv.append(updatedRatingDiv);
         } else {
+          ratingDiv.html('<h4>No ratings yet</h4>');
           thisResultDiv.append(ratingDiv);
         }
         var rateThisLink = App.main.displayRateThisLink();

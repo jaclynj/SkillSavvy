@@ -1,0 +1,17 @@
+#search-header
+  #user-box
+    -if current_user
+      Logged in as:
+      = current_user.email
+      |
+      =link_to "Log Out", logout_path
+    -else
+      = link_to "Home", root_path
+      |
+      = link_to "Sign Up", signup_path
+      |
+      = link_to "Login", login_path
+  #header
+    %h1 a·bil·i·me
+    %h3 Strengthen your abilities
+    %br

@@ -1,18 +1,5 @@
-#user-box
-  = link_to "Home", root_path
-  |
-  -if current_user
-    Logged in as:
-    = current_user.email
-    |
-    =link_to "Log Out", logout_path
-  -else
-    = link_to "Sign Up", signup_path
-    |
-    = link_to "Login", login_path
-%br
+
 %h1 Log In
-%br
 .row
   #log-in.col-md-2
     .form-horizontal.span5{role: 'form'}
