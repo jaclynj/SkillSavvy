@@ -149,7 +149,7 @@ App.Views.Main = Backbone.View.extend({
     for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
       if (thisResource.link) {
-        //refactor, turn this into a handlebars template
+        //TODO: refactor, turn this into a handlebars template
         var thisResultDiv = $("<div>");
         thisResultDiv.addClass('results-div row');
         var div = $("<div>");

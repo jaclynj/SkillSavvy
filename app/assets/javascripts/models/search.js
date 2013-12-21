@@ -1,8 +1,5 @@
 App.Models.Search = Backbone.Model.extend({
-
-  initialize: function() {
-
-  },
+  initialize: function() {},
   searchWeb: function(query){
     this.webSearch = new Bounce.MixedResultsSearch();
     this.webSearch.group = 'bounce-internet-and-blogs';

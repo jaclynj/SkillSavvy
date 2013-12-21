@@ -8,9 +8,6 @@ App.Models.Resource = Backbone.Model.extend({
     title: "",
     url:    ""
   },
-  // attrs is model attributes
-  // options are what's passed from save or set
   initialize: function(){
-    // this.view = new App.Views.RatingView({model: this});
   }
 });

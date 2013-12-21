@@ -9,8 +9,6 @@ App.Models.Rating = Backbone.Model.extend({
     resource_id:    1,
     user_id:        1
   },
-  // attrs is model attributes
-  // options are what's passed from save or set
   initialize: function(){
 
   }

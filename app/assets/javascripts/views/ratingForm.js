@@ -104,7 +104,6 @@ App.Views.RatingForm = Backbone.View.extend({
     this.rating.save(null, {
       success: function(model, response){
         console.log('saved rating, resetting everything');
-        // App.main.ratings.add(model);
         App.ratingForm.trigger('resetEverything');
       },
       error: function(model, response) {

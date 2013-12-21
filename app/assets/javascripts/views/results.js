@@ -11,7 +11,6 @@ App.Views.Results = Backbone.View.extend({
       e.preventDefault();
       //displays and moves rating box
       var rating = $('#rating-form');
-      // var newLeft = e.currentTarget.offsetLeft + 100;
       //passes attributes of resource to rating form
       var item = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[0]);
       var bod = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[2]);
@@ -21,8 +20,6 @@ App.Views.Results = Backbone.View.extend({
       App.ratingForm = new App.Views.RatingForm({attributes:{query: this.attributes.query, title: resourceName, url: resourceLink, description: resourceBody} });
       App.ratingForm.on('resetEverything', this.reloadResults);
       rating.removeClass('hidden');
-      // rating.css('display', 'inline-block');
-      // rating.css('opacity', '1');
       rating.fadeIn(320);
     }
   },
