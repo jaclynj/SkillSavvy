@@ -3,27 +3,30 @@ App.Views.Main = Backbone.View.extend({
   events: {
     "submit #submit-form" : "submitSearch"
   },
+
   initialize: function(){
+    this.resources = new App.Collections.Resources({model: App.Models.Resource});
+    this.ratings = new App.Collections.Ratings({model: App.Models.Rating});
     this.search = new App.Models.Search();
     this.listenTo(this.search, 'gotResults', this.showResults);
   },
+
   submitSearch: function(e){
     $('#successful-rating').fadeOut(100);
     e.preventDefault();
     this.query = $('#search-field').val();
     this.search.searchWeb(this.query);
   },
+
   showResults: function() {
     this.results = new App.Views.Results({ el:"#results", attributes:{query: this.query} });
-    App.main.resources = new App.Collections.Resources({model: App.Models.Resource});
-    App.main.ratings = new App.Collections.Ratings({model: App.Models.Rating});
     App.main.updateResources();
   },
+
   updateResources: function() {
     $('#web-results').fadeOut( 100, function() {
       $('#throbber').removeClass('hidden');
     });
-
     console.log(App.main.resources);
     App.main.resources.fetch({
       success: function() {
@@ -32,6 +35,7 @@ App.Views.Main = Backbone.View.extend({
       }
     });
   },
+
   updateRatings: function(){
     console.log(App.main.ratings);
     App.main.ratings.fetch({
@@ -41,8 +45,10 @@ App.Views.Main = Backbone.View.extend({
       }
     });
   },
+
   displayRating: function(div){
     //this is called in displayResults
+    //move these to the results view
     div.html('');
     ratingDiv = div;
     var theseRatings = App.main.ratingInfo;
@@ -91,7 +97,7 @@ App.Views.Main = Backbone.View.extend({
       advRating = (advRating / advancedRatings.length).toFixed(1);
       expRating = (expRating / expertRatings.length).toFixed(1);
 
-
+      //refactor into a handlebars template
       ratingDiv.append('<h4>Ratings from other learners</h4>');
       var tb = $('<table>');
 
@@ -115,7 +121,9 @@ App.Views.Main = Backbone.View.extend({
       //returns the div as a jquery object
       return ratingDiv;
   },
+
   displayRateThisLink: function() {
+    //move these to the results view
     var rateLink = $('<a>',{
       text: "Rate This",
       href: '/ratings/new'
@@ -135,7 +143,9 @@ App.Views.Main = Backbone.View.extend({
       return rateLink;
     }
   },
+
   displayResults: function(feedObject) {
+    //move these to the results view
     //this is the setup
     console.log('displaying results');
     $('#throbber').addClass('hidden');
