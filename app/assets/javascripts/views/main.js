@@ -155,6 +155,11 @@ App.Views.Main = Backbone.View.extend({
     webResultsOnPage.html(webResults);
     webResultsOnPage.prepend("<h3>Results</h3>");
     webResults.attr("id", "these-web-results");
+    //begin edit
+    var sortedRatings = [];
+    var sortedRatingsDiv = $("<div>");
+    var notRated = $("<div>");
+    //end edit
 
     for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
@@ -189,21 +194,26 @@ App.Views.Main = Backbone.View.extend({
         var ratingDiv = $('<div>');
         ratingDiv.addClass('rating-div col-md-3');
 
+        var rateThisLink = App.main.displayRateThisLink();
+        div.append(rateThisLink);
+
         if (existingResource && existingResource != []) {
 
           App.main.ratingInfo = App.main.ratings.where({resource_id: existingResource.id});
           ratingDiv.attr("id", "rating-" + existingResource.id);
           var updatedRatingDiv = App.main.displayRating(ratingDiv);
           thisResultDiv.append(updatedRatingDiv);
+          //do something here
+          sortedRatingsDiv.append(thisResultDiv);
         } else {
           ratingDiv.html('<h4>No ratings yet</h4>');
           thisResultDiv.append(ratingDiv);
+          notRated.append(thisResultDiv);
         }
-        var rateThisLink = App.main.displayRateThisLink();
-          div.append(rateThisLink);
-        webResults.append(thisResultDiv);
       }
     }
+    webResults.append(sortedRatingsDiv);
+    webResults.append(notRated);
     webResultsOnPage.append(webResults);
     $('#web-results').fadeIn( 300);
   }
