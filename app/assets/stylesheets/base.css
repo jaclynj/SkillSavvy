@@ -156,16 +156,11 @@ td {
   background-color: #F4EFEB;
   margin: 1%;
   border-radius: 3px;
-  -moz-box-shadow: 5px 5px 12px rgba(28,43,59,0.2);
-  -webkit-box-shadow: 5px 5px 12px rgba(28,43,59,0.2);
+  -moz-box-shadow: 3px 5px 10px rgba(28,43,59,0.2);
+  -webkit-box-shadow: 3px 5px 10px rgba(28,43,59,0.2);
   box-shadow: 3px 5px 10px rgba(28,43,59,0.2);
   border: 1px solid rgba(28,43,59,0.2);
 }
-
-/*.rating-div li:first-child {
-  text-decoration: underline;
-  font-size: 1.08em;
-}*/
 
 .search-results {
   padding: 1%;
