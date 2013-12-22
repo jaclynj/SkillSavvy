@@ -172,7 +172,15 @@ App.Views.Main = Backbone.View.extend({
           });
         App.main.resourceLink.addClass('resource-link');
           div.append(App.main.resourceLink);
+          div.append("<br>");
+        var siteLink = $('<a>',{
+            text: thisResource.link,
+            href: thisResource.link,
+            target: "_blank"
+          });
+        div.append(siteLink);
         div.append("<br>" + thisResource.content);
+
 
         thisResultDiv.append(div);
 

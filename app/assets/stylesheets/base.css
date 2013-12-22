@@ -122,8 +122,8 @@ font-size: 1.02em;
 }
 
 #these-web-results {
-  height: 350px;
-  overflow: scroll;
+/*  height: 350px;
+  overflow: scroll;*/
   margin: 1%;
 }
 

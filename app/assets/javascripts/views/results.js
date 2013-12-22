@@ -1,19 +1,17 @@
 App.Views.Results = Backbone.View.extend({
   events: {
-    "click a" : "showRatingForm"
+    "click a.rate-this" : "showRatingForm"
   },
   attributes: {
     //this.attributes.query
   },
   showRatingForm: function(e){
-    //if what was clicked was 'rate this'
-    if (e.currentTarget.innerText == 'Rate This') {
       e.preventDefault();
       //displays and moves rating box
       var rating = $('#rating-form');
       //passes attributes of resource to rating form
       var item = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[0]);
-      var bod = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[2]);
+      var bod = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[4]);
       var resourceBody = bod.text();
       var resourceLink = item.context.href;
       var resourceName = item.context.innerText;
@@ -21,7 +19,6 @@ App.Views.Results = Backbone.View.extend({
       App.ratingForm.on('resetEverything', this.reloadResults);
       rating.removeClass('hidden');
       rating.fadeIn(320);
-    }
   },
   reloadResults: function(){
     console.log('before reloading');
