@@ -48,6 +48,7 @@ font-weight: bold;
   background-repeat:no-repeat;
   background-position: center 70%;
   opacity: 0.8;
+  width: 100%;
 }
 
 
@@ -127,8 +128,9 @@ font-size: 1.02em;
 }
 
 #these-web-results {
-/*  height: 350px;
-  overflow: scroll;*/
+  height: 350px;
+  overflow-y: scroll;
+  overflow-x: hidden;
   margin: 1%;
 }
 
