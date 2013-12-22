@@ -178,6 +178,7 @@ App.Views.Main = Backbone.View.extend({
             href: thisResource.link,
             target: "_blank"
           });
+        siteLink.addClass('site-link');
         div.append(siteLink);
         div.append("<br>" + thisResource.content);
 

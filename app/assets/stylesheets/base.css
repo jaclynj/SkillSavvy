@@ -104,6 +104,11 @@ font-size: 1.02em;
   color: #fff;
 }
 
+#these-web-results a.site-link {
+  color: #5F95C9;
+  font-size: 0.9em;
+}
+
 #these-web-results a.resource-link {
   color: #5F95C9;
   font-weight: bolder;
@@ -131,14 +136,6 @@ font-size: 1.02em;
   margin-top: 2%;
 }
 
-.rating-div li {
-  text-decoration: none;
-  list-style: none;
-  list-style-type: none;
-  line-height: 1.1em;
-  text-align: left;
-}
-
 tr {
   text-align: center;
   float: none;
@@ -150,6 +147,7 @@ td {
   text-align: left;
   width: 500px;
   padding: 0 2%;
+  font-size: 0.9em;
 }
 
 .rating-div {
@@ -162,10 +160,10 @@ td {
   border: 1px solid rgba(28,43,59,0.2);
 }
 
-.rating-div li:first-child {
+/*.rating-div li:first-child {
   text-decoration: underline;
   font-size: 1.08em;
-}
+}*/
 
 .search-results {
   padding: 1%;
