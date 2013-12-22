@@ -127,6 +127,10 @@ font-size: 1.02em;
   margin: 1%;
 }
 
+#throbber {
+  margin-top: 2%;
+}
+
 .rating-div li {
   text-decoration: none;
   list-style: none;
