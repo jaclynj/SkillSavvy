@@ -14,9 +14,19 @@
   padding-bottom: 0;
   margin: .5%;
 }
+#sort-by {
+  margin: 5px 0 0 5%;
+  padding: 2px;
+  text-align: left;
+}
 
+#sort-by-select {
+  background-color: #EBEBFB;
+  color: #474137;
+}
 #all h2 {
   font-family: 'Raleway', sans-serif;
+  margin-top: 0;
 }
 
 #all h3 {
@@ -40,7 +50,7 @@ font-weight: bold;
 }
 
 #search-header {
-  color: #EAEAFF;
+  color: #F0EFFF;
   margin: 0;
   padding: 0;
   background-image: url('header-bg.jpg');

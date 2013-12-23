@@ -1,4 +1,13 @@
 #search
+  #sort-by
+    Sort by
+    %select#sort-by-select
+      %option search ranking
+      %option overall rating
+      %option newbie rating
+      %option novice rating
+      %option advanced rating
+      %option expert rating
   %h2 What do you want to learn or improve?
   %form#submit-form
     %input#search-field{ :name => 'search-field', :type => "text", :placeholder => "i.e. play guitar, speak spanish, solve rubix cube"}
