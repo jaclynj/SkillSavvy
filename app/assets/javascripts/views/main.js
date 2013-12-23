@@ -155,6 +155,58 @@ App.Views.Main = Backbone.View.extend({
       return rateLink;
     }
   },
+  compareOverall: function(a,b) {
+    if (a.ratings.overallRating < b.ratings.overallRating )
+      return 1;
+    if (a.ratings.overallRating  > b.ratings.overallRating )
+      return -1;
+    return 0;
+  },
+  createSortedDiv: function(ratingsArray){
+    //sort using comparision function
+    ratingsArray.sort(this.compareOverall);
+    var sortedResults = $('<div>');
+    //create a div for each
+    _.each(ratingsArray, function(model){
+      thisResult = $('<div>');
+      thisResult.addClass('results-div row');
+      div = $('<div>');
+      var title = model.attributes.title;
+      var url = model.attributes.url;
+      var desc = model.attributes.description;
+      //adds title+link
+      div.addClass("search-results col-md-8");
+      var titleLink = $('<a>',{
+        text: title,
+        href: url,
+        target: "_blank"
+      });
+      //resource link under title
+      titleLink.addClass('resource-link');
+        div.append(titleLink);
+        div.append("<br>");
+      var siteLink = $('<a>',{
+        text: url,
+        href: url,
+        target: "_blank"
+      });
+      siteLink.addClass('site-link');
+      div.append(siteLink);
+      //description
+      div.append("<br>" + desc);
+      thisResult.append(div);
+      //create rating div for this result
+      var ratingDiv = App.main.displayRating(model.ratings);
+      ratingDiv.attr("id", "rating-" + model.id);
+      thisResult.append(ratingDiv);
+      //add each from sortedRatings array to the sorted ratings div in order
+      sortedResults.append(thisResult);
+      var rateThisLink = App.main.displayRateThisLink();
+      div.append(rateThisLink);
+    });
+    //this should return a div of divs
+    return sortedResults;
+  },
 
   displayResults: function(feedObject) {
     //move these to the results view
@@ -169,71 +221,59 @@ App.Views.Main = Backbone.View.extend({
     webResults.attr("id", "these-web-results");
     //begin edit
     var sortedRatings = [];
-    var sortedRatingsDiv = $("<div>");
-    var notRated = $("<div>");
+    var notInDB = $("<div>");
     //end edit
 
     for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];
       if (thisResource.link) {
-        //TODO: refactor, turn this into a handlebars template
-        var thisResultDiv = $("<div>");
-        thisResultDiv.addClass('results-div row');
-        var div = $("<div>");
-
-        div.addClass("search-results col-md-8");
-        App.main.resourceLink = $('<a>',{
+        ///check if it exists
+        var existingResource = App.main.resources.findWhere({url: thisResource.link});
+        //do this if resource exists in db
+        if (existingResource && existingResource != []) {
+          App.main.ratingInfo = App.main.ratings.where({resource_id: existingResource.id});
+          existingResource.ratings = App.main.getRatingAverages();
+          //sortedRatings is an array of models
+          sortedRatings.push(existingResource);
+        } else {
+          var thisResultDiv = $("<div>");
+          thisResultDiv.addClass('results-div row');
+          var div = $("<div>");
+          var notRatedDiv = $("<div>");
+          notRatedDiv.addClass('rating-div col-md-3');
+          notRatedDiv.html('<h4>No ratings yet</h4>');
+          //adds title+link
+          div.addClass("search-results col-md-8");
+          var resourceLink = $('<a>',{
             text: thisResource.title,
             href: thisResource.link,
             target: "_blank"
           });
-        App.main.resourceLink.addClass('resource-link');
-          div.append(App.main.resourceLink);
-          div.append("<br>");
-        var siteLink = $('<a>',{
+          //resource link under title
+          resourceLink.addClass('resource-link');
+            div.append(resourceLink);
+            div.append("<br>");
+          var siteLink = $('<a>',{
             text: thisResource.link,
             href: thisResource.link,
             target: "_blank"
           });
-        siteLink.addClass('site-link');
-        div.append(siteLink);
-        div.append("<br>" + thisResource.content);
-
-
-        thisResultDiv.append(div);
-
-        var existingResource = App.main.resources.findWhere({url: thisResource.link});
-
-
-        var rateThisLink = App.main.displayRateThisLink();
-        div.append(rateThisLink);
-
-        if (existingResource && existingResource != []) {
-
-          App.main.ratingInfo = App.main.ratings.where({resource_id: existingResource.id});
-          existingResource.ratings = App.main.getRatingAverages();
-          sortedRatings.push(existingResource);
-          //this will be in a .each to add each from sortedRatings array
-          //to the sorted ratings div in order
-          var ratingDiv = App.main.displayRating(existingResource.ratings);
-          ratingDiv.attr("id", "rating-" + existingResource.id);
-          thisResultDiv.append(ratingDiv);
-          sortedRatingsDiv.append(thisResultDiv);
-          //end of things that will be moved
-        } else {
-          notRatedDiv = $('<div>');
-          notRatedDiv.addClass('rating-div col-md-3');
-          notRatedDiv.html('<h4>No ratings yet</h4>');
+          siteLink.addClass('site-link');
+          div.append(siteLink);
+          //description
+          div.append("<br>" + thisResource.content);
+          thisResultDiv.append(div);
           thisResultDiv.append(notRatedDiv);
-          notRated.append(thisResultDiv);
+          notInDB.append(thisResultDiv);
         }
       }
     }
+    var sortedRatingsDiv = App.main.createSortedDiv(sortedRatings);
     //sort the sortedRatingsDiv before appending.
     webResults.append(sortedRatingsDiv);
-    webResults.append(notRated);
+    webResults.append(notInDB);
     webResultsOnPage.append(webResults);
-    $('#web-results').fadeIn( 300);
+    $('#web-results').fadeIn( 300 );
   }
 });
 
