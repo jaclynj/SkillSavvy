@@ -46,11 +46,7 @@ App.Views.Main = Backbone.View.extend({
     });
   },
 
-  displayRating: function(div){
-    //this is called in displayResults
-    //move these to the results view
-    div.html('');
-    ratingDiv = div;
+  getRatingAverages: function(){
     var theseRatings = App.main.ratingInfo;
     var len = theseRatings.length;
     var overall = 0;
@@ -78,6 +74,7 @@ App.Views.Main = Backbone.View.extend({
     var expertRatings = _.filter(theseRatings, function(r){
       return r.attributes.expert_rating > 0;
     });
+
     _.each(newbieRatings, function(rating){
       newbRating += rating.attributes.newbie_rating;
     });
@@ -90,36 +87,51 @@ App.Views.Main = Backbone.View.extend({
     _.each(expertRatings, function(rating){
       expRating += rating.attributes.expert_rating;
     });
+    overall = (overall / len).toFixed(1);
+    newbRating = (newbRating / newbieRatings.length).toFixed(1);
+    novRating = (novRating / noviceRatings.length).toFixed(1);
+    advRating = (advRating / advancedRatings.length).toFixed(1);
+    expRating = (expRating / expertRatings.length).toFixed(1);
+    return {
+      overallRating: overall,
+      newbieRating: newbRating,
+      noviceRating: novRating,
+      advancedRating: advRating,
+      expertRating: expRating
+      };
+  },
 
-      overall = (overall / len).toFixed(1);
-      newbRating = (newbRating / newbieRatings.length).toFixed(1);
-      novRating = (novRating / noviceRatings.length).toFixed(1);
-      advRating = (advRating / advancedRatings.length).toFixed(1);
-      expRating = (expRating / expertRatings.length).toFixed(1);
+  displayRating: function(ratingsAverages){
+    //this is called in displayResults
+    //move these to the results view
+    var ratingDiv = $('<div>');
+    ratingDiv.addClass('rating-div col-md-3');
+    var rA = ratingsAverages;
 
-      //refactor into a handlebars template
-      ratingDiv.append('<h4>Ratings from other learners</h4>');
-      var tb = $('<table>');
+    //refactor into a handlebars template
+    ratingDiv.append('<h4>Ratings from other learners</h4>');
+    var tb = $('<table>');
 
-      tb.append('<tr>'+ '<td>' + "overall rating: " + '</td><td>' + overall + '</td>' +'</tr>');
-      if (newbRating >= 1) {
-        tb.append('<tr>'+ '<td>' + "newbie rating: " + '</td><td>' + newbRating + '</td>' +'</tr>');
-      }
-      if (novRating >= 1) {
-        tb.append('<tr>'+ '<td>' + "novice rating: " + '</td><td>' + novRating + '</td>' +'</tr>');
-      }
+    tb.append('<tr>'+ '<td>' + "overall rating: " + '</td><td>' + rA.overallRating + '</td>' +'</tr>');
 
-      if (advRating >= 1) {
-        tb.append('<tr>'+ '<td>' + "advanced rating: " + '</td><td>' + advRating + '</td>' +'</tr>');
-      }
+    if (rA.newbieRating >= 1) {
+      tb.append('<tr>'+ '<td>' + "newbie rating: " + '</td><td>' + rA.newbieRating + '</td>' +'</tr>');
+    }
 
-      if (expRating >= 1) {
-        tb.append('<tr>'+ '<td>' + "expert rating: " + '</td><td>' + expRating + '</td>' +'</tr>');
-      }
+    if (rA.noviceRating >= 1) {
+      tb.append('<tr>'+ '<td>' + "novice rating: " + '</td><td>' + rA.noviceRating + '</td>' +'</tr>');
+    }
 
-      ratingDiv.append(tb);
-      //returns the div as a jquery object
-      return ratingDiv;
+    if (rA.advancedRating >= 1) {
+      tb.append('<tr>'+ '<td>' + "advanced rating: " + '</td><td>' + rA.advancedRating + '</td>' +'</tr>');
+    }
+
+    if (rA.expertRating >= 1) {
+      tb.append('<tr>'+ '<td>' + "expert rating: " + '</td><td>' + rA.expertRating + '</td>' +'</tr>');
+    }
+    ratingDiv.append(tb);
+    //returns the div as a jquery object
+    return ratingDiv;
   },
 
   displayRateThisLink: function() {
@@ -191,8 +203,7 @@ App.Views.Main = Backbone.View.extend({
         thisResultDiv.append(div);
 
         var existingResource = App.main.resources.findWhere({url: thisResource.link});
-        var ratingDiv = $('<div>');
-        ratingDiv.addClass('rating-div col-md-3');
+
 
         var rateThisLink = App.main.displayRateThisLink();
         div.append(rateThisLink);
@@ -200,18 +211,25 @@ App.Views.Main = Backbone.View.extend({
         if (existingResource && existingResource != []) {
 
           App.main.ratingInfo = App.main.ratings.where({resource_id: existingResource.id});
+          existingResource.ratings = App.main.getRatingAverages();
+          sortedRatings.push(existingResource);
+          //this will be in a .each to add each from sortedRatings array
+          //to the sorted ratings div in order
+          var ratingDiv = App.main.displayRating(existingResource.ratings);
           ratingDiv.attr("id", "rating-" + existingResource.id);
-          var updatedRatingDiv = App.main.displayRating(ratingDiv);
-          thisResultDiv.append(updatedRatingDiv);
-          //do something here
-          sortedRatingsDiv.append(thisResultDiv);
-        } else {
-          ratingDiv.html('<h4>No ratings yet</h4>');
           thisResultDiv.append(ratingDiv);
+          sortedRatingsDiv.append(thisResultDiv);
+          //end of things that will be moved
+        } else {
+          notRatedDiv = $('<div>');
+          notRatedDiv.addClass('rating-div col-md-3');
+          notRatedDiv.html('<h4>No ratings yet</h4>');
+          thisResultDiv.append(notRatedDiv);
           notRated.append(thisResultDiv);
         }
       }
     }
+    //sort the sortedRatingsDiv before appending.
     webResults.append(sortedRatingsDiv);
     webResults.append(notRated);
     webResultsOnPage.append(webResults);
