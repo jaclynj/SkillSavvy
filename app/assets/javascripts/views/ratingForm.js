@@ -2,7 +2,7 @@ App.Views.RatingForm = Backbone.View.extend({
   el:"#rating-form",
   events: {
     "click button#x-button" : "closeForm",
-    "click #submit" : "assignResource"
+    "click #submit" : "assignResource",
   },
   attributes: {
     //this.attributes.query

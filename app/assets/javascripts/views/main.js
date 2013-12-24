@@ -1,7 +1,8 @@
 App.Views.Main = Backbone.View.extend({
   el: "#search",
   events: {
-    "submit #submit-form" : "submitSearch"
+    "submit #submit-form" : "submitSearch",
+    "change #sort-by-select" : "submitSearch"
   },
 
   initialize: function(){
@@ -15,7 +16,9 @@ App.Views.Main = Backbone.View.extend({
     $('#successful-rating').fadeOut(100);
     e.preventDefault();
     this.query = $('#search-field').val();
-    this.search.searchWeb(this.query);
+    if (this.query != "") {
+      this.search.searchWeb(this.query);
+    }
   },
 
   showResults: function() {
@@ -87,11 +90,21 @@ App.Views.Main = Backbone.View.extend({
     _.each(expertRatings, function(rating){
       expRating += rating.attributes.expert_rating;
     });
+
     overall = (overall / len).toFixed(1);
-    newbRating = (newbRating / newbieRatings.length).toFixed(1);
-    novRating = (novRating / noviceRatings.length).toFixed(1);
-    advRating = (advRating / advancedRatings.length).toFixed(1);
-    expRating = (expRating / expertRatings.length).toFixed(1);
+
+    if (newbieRatings.length >= 1) {
+      newbRating = (newbRating / newbieRatings.length).toFixed(1);
+    }
+    if (noviceRatings.length >= 1) {
+      novRating = (novRating / noviceRatings.length).toFixed(1);
+    }
+    if (advancedRatings.length >= 1) {
+      advRating = (advRating / advancedRatings.length).toFixed(1);
+    }
+    if (expertRatings.length >= 1) {
+      expRating = (expRating / expertRatings.length).toFixed(1);
+    }
     return {
       overallRating: overall,
       newbieRating: newbRating,
@@ -155,16 +168,42 @@ App.Views.Main = Backbone.View.extend({
       return rateLink;
     }
   },
-  compareOverall: function(a,b) {
+  overallSort: function(a,b) {
     if (a.ratings.overallRating < b.ratings.overallRating )
       return 1;
     if (a.ratings.overallRating  > b.ratings.overallRating )
       return -1;
     return 0;
   },
+  newbieSort: function(a,b) {
+    if (a.ratings.newbieRating < b.ratings.newbieRating )
+      return 1;
+    if (a.ratings.newbieRating  > b.ratings.newbieRating )
+      return -1;
+    return 0;
+  },
+  noviceSort: function(a,b) {
+    if (a.ratings.noviceRating < b.ratings.noviceRating )
+      return 1;
+    if (a.ratings.noviceRating  > b.ratings.noviceRating )
+      return -1;
+    return 0;
+  },
+  advancedSort: function(a,b) {
+    if (a.ratings.advancedRating < b.ratings.advancedRating )
+      return 1;
+    if (a.ratings.advancedRating  > b.ratings.advancedRating )
+      return -1;
+    return 0;
+  },
+  expertSort: function(a,b) {
+    if (a.ratings.expertRating < b.ratings.expertRating )
+      return 1;
+    if (a.ratings.expertRating  > b.ratings.expertRating )
+      return -1;
+    return 0;
+  },
   createSortedDiv: function(ratingsArray){
-    //sort using comparision function
-    ratingsArray.sort(this.compareOverall);
     var sortedResults = $('<div>');
     //create a div for each
     _.each(ratingsArray, function(model){
@@ -262,18 +301,43 @@ App.Views.Main = Backbone.View.extend({
           div.append(siteLink);
           //description
           div.append("<br>" + thisResource.content);
+          div.append( App.main.displayRateThisLink() );
           thisResultDiv.append(div);
           thisResultDiv.append(notRatedDiv);
           notInDB.append(thisResultDiv);
         }
       }
     }
+    sortedRatings = App.main.detectSortingMethod(sortedRatings);
+    //sort the rating first, then pass that in here
     var sortedRatingsDiv = App.main.createSortedDiv(sortedRatings);
     //sort the sortedRatingsDiv before appending.
     webResults.append(sortedRatingsDiv);
     webResults.append(notInDB);
     webResultsOnPage.append(webResults);
     $('#web-results').fadeIn( 300 );
+  },
+
+  detectSortingMethod: function(ratingsArray){
+    var selected = $('#sort-by-select').val();
+
+    if (selected == "overall rating") {
+      return ratingsArray.sort(this.overallSort);
+
+    } else if (selected == "newbie rating") {
+      return ratingsArray.sort(this.newbieSort);
+
+    } else if (selected == "novice rating") {
+      return ratingsArray.sort(this.noviceSort);
+
+    } else if (selected == "advanced rating") {
+      return ratingsArray.sort(this.advancedSort);
+
+    } else if (selected == "expert rating") {
+      return ratingsArray.sort(this.expertSort);
+    }
+
+
   }
 });
 
