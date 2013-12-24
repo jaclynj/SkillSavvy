@@ -2,7 +2,7 @@ App.Views.RatingForm = Backbone.View.extend({
   el:"#rating-form",
   events: {
     "click button#x-button" : "closeForm",
-    "click #submit" : "assignResource",
+    "click #submit-button" : "submitForm",
   },
   attributes: {
     //this.attributes.query
@@ -17,6 +17,7 @@ App.Views.RatingForm = Backbone.View.extend({
     this.rating = new App.Models.Rating();
     App.main.ratings.add(this.rating);
     this.listenTo(this.resource, 'savedResource', this.createRating);
+    this.listenTo(App.main, 'turn it off', this.closeForm);
   },
 
   closeForm: function(e) {
@@ -27,7 +28,17 @@ App.Views.RatingForm = Backbone.View.extend({
     this.$el.fadeOut(200, function(){
       App.ratingForm.$el.addClass('hidden');
       App.ratingForm.undelegateEvents();
+
     });
+  },
+  submitForm: function(e) {
+    console.log('submit button clicked');
+    if (e) {
+      e.preventDefault();
+    }
+    App.ratingForm.undelegateEvents();
+    App.ratingForm.closeForm();
+    App.ratingForm.assignResource();
   },
 
   assignResource: function(e) {
@@ -36,9 +47,8 @@ App.Views.RatingForm = Backbone.View.extend({
     if (e) {
       e.preventDefault();
     };
-    this.closeForm();
+    // this.closeForm();
     console.log('submitting form...');
-    e.preventDefault();
     App.main.resources.fetch({
       success: function(){
         var thisMain = App.ratingForm;

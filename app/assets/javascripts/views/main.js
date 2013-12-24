@@ -2,7 +2,7 @@ App.Views.Main = Backbone.View.extend({
   el: "#search",
   events: {
     "submit #submit-form" : "submitSearch",
-    "change #sort-by-select" : "submitSearch"
+    "change #sort-by-select" : "submitSortedSearch"
   },
 
   initialize: function(){
@@ -13,11 +13,25 @@ App.Views.Main = Backbone.View.extend({
   },
 
   submitSearch: function(e){
+    console.log('submitting search');
     $('#successful-rating').fadeOut(100);
     e.preventDefault();
     this.query = $('#search-field').val();
     if (this.query != "") {
       this.search.searchWeb(this.query);
+    }
+  },
+  submitSortedSearch: function(e){
+    console.log('submitting sorted search');
+    $('#successful-rating').fadeOut(100);
+    e.preventDefault();
+    this.query = $('#search-field').val();
+    if (this.query != "") {
+      this.trigger('turn it off');
+      $('#web-results').fadeOut( 100, function() {
+        $('#throbber').removeClass('hidden');
+        App.main.search.webSearch.get(App.main.displayResults);
+    });
     }
   },
 
