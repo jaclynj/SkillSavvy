@@ -15,6 +15,12 @@ App.Views.Results = Backbone.View.extend({
       var resourceBody = bod.text();
       var resourceLink = item.context.href;
       var resourceName = item.context.innerText;
+      //this is important! Prevents rating form from submitting multiple times
+      if (App.ratingForm) {
+        App.ratingForm.stopListening();
+        App.ratingForm.undelegateEvents();
+      };
+      //that was important
       App.ratingForm = new App.Views.RatingForm({attributes:{query: this.attributes.query, title: resourceName, url: resourceLink, description: resourceBody} });
       App.ratingForm.on('resetEverything', this.reloadResults);
       rating.removeClass('hidden');

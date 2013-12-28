@@ -18,6 +18,7 @@ App.Views.Main = Backbone.View.extend({
     e.preventDefault();
     this.query = $('#search-field').val();
     if (this.query != "") {
+      this.trigger('turn it off');
       this.search.searchWeb(this.query);
     }
   },

@@ -27,8 +27,6 @@ App.Views.RatingForm = Backbone.View.extend({
     console.log('closing form');
     this.$el.fadeOut(200, function(){
       App.ratingForm.$el.addClass('hidden');
-      App.ratingForm.undelegateEvents();
-
     });
   },
   submitForm: function(e) {
@@ -36,7 +34,6 @@ App.Views.RatingForm = Backbone.View.extend({
     if (e) {
       e.preventDefault();
     }
-    App.ratingForm.undelegateEvents();
     App.ratingForm.closeForm();
     App.ratingForm.assignResource();
   },
@@ -47,7 +44,6 @@ App.Views.RatingForm = Backbone.View.extend({
     if (e) {
       e.preventDefault();
     };
-    // this.closeForm();
     console.log('submitting form...');
     App.main.resources.fetch({
       success: function(){
