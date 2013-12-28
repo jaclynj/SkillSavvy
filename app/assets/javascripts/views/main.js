@@ -273,10 +273,8 @@ App.Views.Main = Backbone.View.extend({
     webResultsOnPage.html(webResults);
     webResultsOnPage.prepend("<h3>Results</h3>");
     webResults.attr("id", "these-web-results");
-    //begin edit
     var sortedRatings = [];
     var notInDB = $("<div>");
-    //end edit
 
     for (var i=0; i < feedObject.entries.length; i++) {
       var thisResource = feedObject.entries[i];

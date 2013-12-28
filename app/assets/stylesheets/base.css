@@ -15,9 +15,10 @@
   margin: .5%;
 }
 #sort-by {
-  margin: 5px 0 0 5%;
+  margin: 8px 10% 0 0;
   padding: 2px;
-  text-align: left;
+  text-align: right;
+  font-size: 0.95em;
 }
 
 #sort-by-select {
@@ -88,8 +89,8 @@ padding-top: 1%;
   background-color: RGBA(236, 215, 182, 0.2);
   font-weight: bolder;
   color: #456C91;
-  text-align: right;
-  padding-right: 1%;
+  text-align: left;
+  padding-left: 1%;
 }
 
 #all #user-box a {
