@@ -6,8 +6,6 @@
   <link href='http://fonts.googleapis.com/css?family=Comfortaa|Raleway' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="http://feeds.bounceisfree.com/api/bounce-lib.js"></script>
 <script type="text/javascript" src="http://feeds.bounceisfree.com/api/bounce-ajax-feed-api.js"></script>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
 
   <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
@@ -17,7 +15,8 @@
 
   <!-- Latest compiled and minified JavaScript -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body id="all">
@@ -28,8 +27,5 @@
     <% end %>
     <%= yield %>
   </div>
-
-
-
 </body>
 </html>
