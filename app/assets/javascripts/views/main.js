@@ -222,44 +222,49 @@ App.Views.Main = Backbone.View.extend({
     var sortedResults = $('<div>');
     //create a div for each
     _.each(ratingsArray, function(model){
-      thisResult = $('<div>');
-      thisResult.addClass('results-div row');
-      div = $('<div>');
-      var title = model.attributes.title;
-      var url = model.attributes.url;
-      var desc = model.attributes.description;
-      //adds title+link
-      div.addClass("search-results col-md-8");
-      var titleLink = $('<a>',{
-        text: title,
-        href: url,
-        target: "_blank"
-      });
-      //resource link under title
-      titleLink.addClass('resource-link');
-        div.append(titleLink);
-        div.append("<br>");
-      var siteLink = $('<a>',{
-        text: url,
-        href: url,
-        target: "_blank"
-      });
-      siteLink.addClass('site-link');
-      div.append(siteLink);
-      //description
-      div.append("<br>" + desc);
-      thisResult.append(div);
-      //create rating div for this result
-      var ratingDiv = App.main.displayRating(model.ratings);
-      ratingDiv.attr("id", "rating-" + model.id);
-      thisResult.append(ratingDiv);
-      //add each from sortedRatings array to the sorted ratings div in order
+      //creates
+      var thisResult = App.main.createResultDivWithRating(model);
       sortedResults.append(thisResult);
-      var rateThisLink = App.main.displayRateThisLink();
-      div.append(rateThisLink);
     });
     //this should return a div of divs
     return sortedResults;
+  },
+  createResultDivWithRating: function(model){
+    var thisResult = $('<div>');
+    thisResult.addClass('results-div row');
+    var div = $('<div>');
+    var title = model.attributes.title;
+    var url = model.attributes.url;
+    var desc = model.attributes.description;
+    //adds title+link
+    div.addClass("search-results col-md-8");
+    var titleLink = $('<a>',{
+      text: title,
+      href: url,
+      target: "_blank"
+    });
+    //resource link under title
+    titleLink.addClass('resource-link');
+    div.append(titleLink);
+    div.append("<br>");
+    var siteLink = $('<a>',{
+      text: url,
+      href: url,
+      target: "_blank"
+    });
+    siteLink.addClass('site-link');
+    div.append(siteLink);
+    //description
+    div.append("<br>" + desc);
+    thisResult.append(div);
+    //create rating div for this result
+    var ratingDiv = App.main.displayRating(model.ratings);
+    ratingDiv.attr("id", "rating-" + model.id);
+    thisResult.append(ratingDiv);
+    //return thisResult, div with the result and rating
+    var rateThisLink = App.main.displayRateThisLink();
+    div.append(rateThisLink);
+    return thisResult;
   },
 
   displayResults: function(feedObject) {
@@ -286,7 +291,13 @@ App.Views.Main = Backbone.View.extend({
           App.main.ratingInfo = App.main.ratings.where({resource_id: existingResource.id});
           existingResource.ratings = App.main.getRatingAverages();
           //sortedRatings is an array of models
-          sortedRatings.push(existingResource);
+          if ($('#sort-by-select').val() != 'search ranking') {
+            sortedRatings.push(existingResource);
+          } else {
+            var searchResultDiv = App.main.createResultDivWithRating(existingResource);
+            notInDB.append(searchResultDiv);
+          }
+
         } else {
           var thisResultDiv = $("<div>");
           thisResultDiv.addClass('results-div row');
