@@ -4,6 +4,7 @@
   font-size: 1.8em;
   font-family: 'Raleway', sans-serif;
   color: #472704;
+  margin: 0;
 }
 
 #all h1 {
@@ -22,7 +23,7 @@
 }
 
 #sort-by-select {
-  background-color: #EBEBFB;
+  background-color: #FFFAF3;
   color: #474137;
 }
 #all h2 {
@@ -51,7 +52,7 @@ font-weight: bold;
 }
 
 #search-header {
-  color: #F0EFFF;
+  color: #FFF4F3;
   margin: 0;
   padding: 0;
   background-image: url('header-bg.jpg');
@@ -136,6 +137,7 @@ font-size: 1.02em;
 #search-field {
   width: 40%;
   height: 35px;
+  background-color: #FFFAF3;
 }
 
 #these-web-results {
@@ -150,7 +152,7 @@ font-size: 1.02em;
 }
 
 tr {
-  text-align: center;
+  text-align: left;
   float: none;
   margin-left: auto;
   margin-right: auto;
@@ -158,13 +160,12 @@ tr {
 
 td {
   text-align: left;
-  width: 500px;
-  padding: 0 2%;
+  padding: 0;
   font-size: 0.9em;
 }
 
 .rating-div {
-  background-color: #F4EFEB;
+  background-color: #FFFAF3;
   margin: 1%;
   border-radius: 3px;
   -moz-box-shadow: 3px 5px 10px rgba(28,43,59,0.2);
@@ -248,3 +249,59 @@ td {
   border-radius: 5px;
   margin-left: 1%;
 }
+
+
+/*star rating classes*/
+
+.rating-type {
+  width: auto;
+  white-space: nowrap;
+  margin-right: 2%;
+}
+
+.star50 {
+  background-image: url('starratings/50star.png');
+}
+.star45 {
+  background-image: url('starratings/45star.png');
+}
+.star40 {
+  background-image: url('starratings/40star.png');
+}
+.star35 {
+  background-image: url('starratings/35star.png');
+}
+.star30 {
+  background-image: url('starratings/30star.png');
+}
+.star25 {
+  background-image: url('starratings/25star.png');
+}
+.star20 {
+  background-image: url('starratings/20star.png');
+}
+.star15 {
+  background-image: url('starratings/15star.png');
+}
+.star10 {
+  background-image: url('starratings/10star.png');
+}
+.star05 {
+  background-image: url('starratings/05star.png');
+}
+.star00 {
+  background-image: url('starratings/00star.png');
+}
+
+
+.star {
+  text-align: center;
+  padding-left: 5%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 500px;
+  background-position: center center;
+/*  filter: drop-shadow(16px 16px 10px black); doesnt work */
+}
+
+

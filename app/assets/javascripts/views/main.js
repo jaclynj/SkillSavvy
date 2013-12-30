@@ -129,6 +129,46 @@ App.Views.Main = Backbone.View.extend({
       };
   },
 
+  addStarRating: function(ratingNumber) {
+    var starRatingClass = "";
+    if (ratingNumber >= 4.8 ) {
+      //display 5 stars
+      starRatingClass = "star50";
+    } else if (ratingNumber >= 4.3 ) {
+      //display 4.5 stars
+      starRatingClass = "star45";
+    } else if (ratingNumber >= 3.8 ) {
+      //display 4 stars
+      starRatingClass = "star40";
+    } else if (ratingNumber >= 3.3 ) {
+      //display 3.5 stars
+      starRatingClass = "star35";
+    } else if (ratingNumber >= 2.8 ) {
+      //display 3 stars
+      starRatingClass = "star30";
+    } else if (ratingNumber >= 2.3 ) {
+      //display 2.5 stars
+      starRatingClass = "star25";
+    } else if (ratingNumber >= 1.8 ) {
+      //display 2 stars
+      starRatingClass = "star20";
+    } else if (ratingNumber >= 1.3 ) {
+      //display 1.5 stars
+      starRatingClass = "star15";
+    } else if (ratingNumber >= 0.8 ) {
+      //display 1 star
+      starRatingClass = "star10";
+    } else if (ratingNumber >= 0.3) {
+      //display 0.5 star
+      starRatingClass = "star05";
+    } else {
+      //display 0 stars
+      starRatingClass = "star00";
+    }
+    return starRatingClass;
+    //should returns class name
+  },
+
   displayRating: function(ratingsAverages){
     //this is called in displayResults
     //move these to the results view
@@ -140,23 +180,28 @@ App.Views.Main = Backbone.View.extend({
     ratingDiv.append('<h4>Ratings from other learners</h4>');
     var tb = $('<table>');
 
-    tb.append('<tr>'+ '<td>' + "overall rating: " + '</td><td>' + rA.overallRating + '</td>' +'</tr>');
+    //tb.append('<tr>'+ '<td>' + "overall rating: " + '</td><td>' + rA.overallRating + '</td>' +'</tr>');
+    var overallStars = App.main.addStarRating(rA.overallRating);
+    var overallRatingTR = "<tr>"+ "<td class = 'rating-type' >" + "overall rating: " + "</td><td class = '" + overallStars + " star' >" + "</td>" + "<td>" + rA.overallRating + "</td>" + "</tr>";
+    tb.append( overallRatingTR );
 
-    if (rA.newbieRating >= 1) {
-      tb.append('<tr>'+ '<td>' + "newbie rating: " + '</td><td>' + rA.newbieRating + '</td>' +'</tr>');
-    }
+    var newbieStars = App.main.addStarRating(rA.newbieRating);
+    var newbieRatingTR = "<tr>"+ "<td class = 'rating-type' >" + "newbie rating: " + "</td><td class = '" + newbieStars + " star' >" + "</td>" + "<td>" + rA.newbieRating + "</td>" + "</tr>";
+    tb.append( newbieRatingTR );
 
-    if (rA.noviceRating >= 1) {
-      tb.append('<tr>'+ '<td>' + "novice rating: " + '</td><td>' + rA.noviceRating + '</td>' +'</tr>');
-    }
 
-    if (rA.advancedRating >= 1) {
-      tb.append('<tr>'+ '<td>' + "advanced rating: " + '</td><td>' + rA.advancedRating + '</td>' +'</tr>');
-    }
+    var noviceStars = App.main.addStarRating(rA.noviceRating);
+    var noviceRatingTR = "<tr>"+ "<td class = 'rating-type' >" + "novice rating: " + "</td><td class = '" + noviceStars + " star' >" + "</td>" + "<td>" + rA.noviceRating + "</td>" + "</tr>";
+    tb.append( noviceRatingTR );
 
-    if (rA.expertRating >= 1) {
-      tb.append('<tr>'+ '<td>' + "expert rating: " + '</td><td>' + rA.expertRating + '</td>' +'</tr>');
-    }
+    var advancedStars = App.main.addStarRating(rA.advancedRating);
+    var advancedRatingTR = "<tr>"+ "<td class = 'rating-type' >" + "advanced rating: " + "</td><td class = '" + advancedStars + " star' >" + "</td>" + "<td>" + rA.advancedRating + "</td>" + "</tr>";
+    tb.append( advancedRatingTR );
+
+    var expertStars = App.main.addStarRating(rA.expertRating);
+    var expertRatingTR = "<tr>"+ "<td class = 'rating-type' >" + "expert rating: " + "</td><td class = '" + expertStars + " star' >" + "</td>" + "<td>" + rA.expertRating + "</td>" + "</tr>";
+    tb.append( expertRatingTR );
+
     ratingDiv.append(tb);
     //returns the div as a jquery object
     return ratingDiv;
