@@ -14,7 +14,7 @@ App.Views.Results = Backbone.View.extend({
       var bod = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[4]);
       var resourceBody = bod.text();
       var resourceLink = item.context.href;
-      var resourceName = item.context.innerText;
+      var resourceName = item.context.textContent;
       //this is important! Prevents rating form from submitting multiple times
       if (App.ratingForm) {
         App.ratingForm.stopListening();
