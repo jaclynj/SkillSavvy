@@ -87,15 +87,15 @@ padding-top: 1%;
 }
 
 #user-box {
-  background-color: RGBA(236, 215, 182, 0.2);
+/*  background-color: RGBA(236, 215, 182, 0.2);*/
   font-weight: bolder;
-  color: #456C91;
+  color: #2B1503;
   text-align: left;
   padding-left: 1%;
 }
 
 #all #user-box a {
-  color: #456C91;
+  color: #2B1503;
 }
 
 #sign-up, #log-in {
