@@ -250,6 +250,9 @@ td {
   margin-left: 1%;
 }
 
+.fav {
+  border-radius: 4px;
+}
 
 /*star rating classes*/
 

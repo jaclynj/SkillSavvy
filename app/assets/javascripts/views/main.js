@@ -290,6 +290,9 @@ App.Views.Main = Backbone.View.extend({
     });
     //resource link under title
     titleLink.addClass('resource-link');
+    var thisDomain = App.main.urlDomain(model.attributes.url);
+    var favicon = ("<img class='fav' src='http://www.google.com/s2/favicons?domain=" + thisDomain + "' /> ");
+    div.append(favicon);
     div.append(titleLink);
     div.append("<br>");
     var siteLink = $('<a>',{
@@ -310,6 +313,12 @@ App.Views.Main = Backbone.View.extend({
     var rateThisLink = App.main.displayRateThisLink();
     div.append(rateThisLink);
     return thisResult;
+  },
+
+  urlDomain: function(data) {
+    var a = document.createElement('a');
+    a.href = data;
+    return a.hostname;
   },
 
   displayResults: function(feedObject) {
@@ -359,6 +368,9 @@ App.Views.Main = Backbone.View.extend({
           });
           //resource link under title
           resourceLink.addClass('resource-link');
+          var thisDomain = App.main.urlDomain(thisResource.link);
+          var favicon = ("<img class='fav' src='http://www.google.com/s2/favicons?domain=" + thisDomain + "' /> ");
+            div.append(favicon);
             div.append(resourceLink);
             div.append("<br>");
           var siteLink = $('<a>',{
