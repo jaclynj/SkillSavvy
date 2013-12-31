@@ -63,7 +63,6 @@ font-weight: bold;
   width: 100%;
 }
 
-
 .error-messages {
   font-size: 0.9em;
   color: #5F95C9;
@@ -74,7 +73,6 @@ font-weight: bold;
 color: #5F95C9;
 padding-top: 1%;
 }
-
 
 #header {
   text-shadow: 2px 2px 2px #5D4C61;
@@ -87,7 +85,6 @@ padding-top: 1%;
 }
 
 #user-box {
-/*  background-color: RGBA(236, 215, 182, 0.2);*/
   font-weight: bolder;
   color: #2B1503;
   text-align: left;
@@ -102,7 +99,20 @@ padding-top: 1%;
   float: none;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
+
+form {
+  text-align: center;
+  margin: 0 auto;
+  float: none;
+}
+
+#sign-up input, #log-in input {
+  padding: 4px 10px;
+  margin: 6px auto 3px auto;
+}
+
 
 .results-div {
   border-bottom: 1.5px solid #A6A6A6;

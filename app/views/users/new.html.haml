@@ -1,26 +1,25 @@
-.row
-  #sign-up.col-md-3
-    .form-horizontal.span5{role: 'form'}
-      .form-group
-        =form_for @user do |f|
-          -if @user.errors.any?
-            %div.error-messages
-              -for message in @user.errors.full_messages
-                %br
-                %p= message.to_s
-          %h1 Sign Up
-          %p
-            =f.label :email
-            =f.email_field :email
-          %p
-            =f.label :password
-            =f.password_field :password
-          %p
-            =f.label :password_confirmation
-            =f.password_field :password_confirmation
-          %br
-          %p
-            =f.submit
-
-
-
+#sign-up.col-sm-5
+  %div{role: 'form'}
+    .col-sm-12
+      =form_for @user do |f|
+        -if @user.errors.any?
+          %div.error-messages
+            -for message in @user.errors.full_messages
+              %br
+              %p= message.to_s
+        %table.col-sm-12{style:"margin:0 auto; text-align:center;"}
+          %tr.col-sm-12
+            %td{style: "margin: 0 auto; text-align: center"}
+              %h1 Sign Up
+          %tr.col-sm-12
+            %td{style: "margin: 0 auto; text-align: center"}
+              =f.email_field :email, placeholder: "Email"
+          %tr.col-sm-12
+            %td{style: "margin: 0 auto; text-align: center"}
+              =f.password_field :password, placeholder: "Password (min. 6 characters)"
+          %tr.col-sm-12
+            %td{style: "margin: 0 auto; text-align: center"}
+              =f.password_field :password_confirmation, placeholder: "Password confirmation"
+          %tr.col-sm-6.col-sm-offset-6
+            %td.col-sm-12{style: "text-align: right"}
+              =f.submit
