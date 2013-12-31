@@ -22,7 +22,7 @@ describe "the searching process", :type => :feature, :js => true do
     within('#submit-form') do
       fill_in 'search-field', :with => 'play guitar'
     end
-    click_button 'search resources'
+    click_button 'search'
     expect(page).to have_content 'Learn & Master Guitar'
   end
 #   describe 'some stuff which requires js', :js => true do
