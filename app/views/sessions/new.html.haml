@@ -1,16 +1,18 @@
-
-%h1 Log In
-.row
-  #log-in.col-md-2
-    .form-horizontal.span5{role: 'form'}
-      .form-group
+#log-in.col-sm-5
+  %div{role: 'form'}
+    .col-sm-12
+      %table.col-sm-12
         = form_tag sessions_path do
-          .field
-            = label_tag :email
-            = email_field_tag :email, params[:email]
-          .field
-            = label_tag :password
-            = password_field_tag :password, params[:password]
-          %br
-          .actions
-            =submit_tag "Log in"
+          %tr.col-sm-12
+            %td
+              %h1 Log In
+          %tr.col-sm-12
+            %td
+              = email_field_tag :email, params[:email], placeholder: "Email"
+          %tr.col-sm-12
+            %td
+              = password_field_tag :password, params[:password], placeholder: "Password"
+          %tr.col-sm-6.col-sm-offset-6
+            %td.col-sm-12{style: "text-align: right"}
+              =submit_tag "Log in"
+

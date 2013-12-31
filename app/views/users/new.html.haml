@@ -7,18 +7,18 @@
             -for message in @user.errors.full_messages
               %br
               %p= message.to_s
-        %table.col-sm-12{style:"margin:0 auto; text-align:center;"}
+        %table.col-sm-12
           %tr.col-sm-12
-            %td{style: "margin: 0 auto; text-align: center"}
+            %td
               %h1 Sign Up
           %tr.col-sm-12
-            %td{style: "margin: 0 auto; text-align: center"}
+            %td
               =f.email_field :email, placeholder: "Email"
           %tr.col-sm-12
-            %td{style: "margin: 0 auto; text-align: center"}
+            %td
               =f.password_field :password, placeholder: "Password (min. 6 characters)"
           %tr.col-sm-12
-            %td{style: "margin: 0 auto; text-align: center"}
+            %td
               =f.password_field :password_confirmation, placeholder: "Password confirmation"
           %tr.col-sm-6.col-sm-offset-6
             %td.col-sm-12{style: "text-align: right"}

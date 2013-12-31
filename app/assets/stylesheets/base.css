@@ -102,16 +102,16 @@ padding-top: 1%;
   text-align: center;
 }
 
-form {
-  text-align: center;
-  margin: 0 auto;
-  float: none;
-}
-
 #sign-up input, #log-in input {
   padding: 4px 10px;
   margin: 6px auto 3px auto;
 }
+
+#sign-up td, #log-in td, #sign-up table, #log-in table {
+  margin: 0 auto;
+  text-align: center
+}
+
 
 
 .results-div {
