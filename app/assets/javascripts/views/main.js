@@ -283,7 +283,7 @@ App.Views.Main = Backbone.View.extend({
     var url = model.attributes.url;
     var desc = model.attributes.description;
     //adds title+link
-    div.addClass("search-results col-md-8");
+    div.addClass("search-results col-md-9");
     var titleLink = $('<a>',{
       text: title,
       href: url,
@@ -312,6 +312,7 @@ App.Views.Main = Backbone.View.extend({
     thisResult.append(ratingDiv);
     //return thisResult, div with the result and rating
     var rateThisLink = App.main.displayRateThisLink();
+    div.append('<br>');
     div.append(rateThisLink);
     return thisResult;
   },
@@ -361,7 +362,7 @@ App.Views.Main = Backbone.View.extend({
           notRatedDiv.addClass('rating-div col-md-3');
           notRatedDiv.html('<h4>No ratings yet</h4>');
           //adds title+link
-          div.addClass("search-results col-md-8");
+          div.addClass("search-results col-md-9");
           var resourceLink = $('<a>',{
             text: thisResource.title,
             href: thisResource.link,
@@ -383,6 +384,7 @@ App.Views.Main = Backbone.View.extend({
           div.append(siteLink);
           //description
           div.append("<br>" + thisResource.content);
+          div.append("<br>");
           div.append( App.main.displayRateThisLink() );
           thisResultDiv.append(div);
           thisResultDiv.append(notRatedDiv);
