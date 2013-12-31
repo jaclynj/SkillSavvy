@@ -330,7 +330,7 @@ App.Views.Main = Backbone.View.extend({
     var webResultsOnPage = $('#web-results');
     var webResults = $("<div>");
     webResultsOnPage.html(webResults);
-    webResultsOnPage.prepend("<h3>Results</h3>");
+    // webResultsOnPage.prepend("<h3>Results</h3>");
     webResults.attr("id", "these-web-results");
     var sortedRatings = [];
     var notInDB = $("<div>");
@@ -396,6 +396,7 @@ App.Views.Main = Backbone.View.extend({
     webResults.append(sortedRatingsDiv);
     webResults.append(notInDB);
     webResultsOnPage.append(webResults);
+    $('#results-header').fadeIn( 300 );
     $('#web-results').fadeIn( 300 );
   },
 

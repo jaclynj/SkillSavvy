@@ -1,13 +1,4 @@
 #search
-  #sort-by
-    Sort by
-    %select#sort-by-select
-      %option search ranking
-      %option overall rating
-      %option newbie rating
-      %option novice rating
-      %option advanced rating
-      %option expert rating
   %h2 What do you want to learn or improve?
   %form#submit-form
     %input#search-field{ :name => 'search-field', :type => "text", :placeholder => "i.e. play guitar, speak spanish, solve rubix cube"}
@@ -37,6 +28,20 @@
       %input#submit-button{type: "submit", value: "Submit"}
 
   #results.span6.center
+    #results-header.row
+      .col-md-12
+        .col-md-2.col-md-offset-5
+          %h3 Results
+        #sort-by.col-md-3.col-md-offset-2
+          %p
+            Sort by
+            %select#sort-by-select
+              %option search ranking
+              %option overall rating
+              %option newbie rating
+              %option novice rating
+              %option advanced rating
+              %option expert rating
     %h4#successful-rating
       successfully rated!
     #throbber.hidden=image_tag('ajax-loader.gif', height: '25')

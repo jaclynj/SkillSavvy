@@ -10,8 +10,8 @@ App.Views.Results = Backbone.View.extend({
       //displays and moves rating box
       var rating = $('#rating-form');
       //passes attributes of resource to rating form
-      var item = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[0]);
-      var bod = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[4]);
+      var item = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[2]);
+      var bod = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[6]);
       var resourceBody = bod.text();
       var resourceLink = item.context.href;
       var resourceName = item.context.textContent;

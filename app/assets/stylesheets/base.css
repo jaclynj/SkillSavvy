@@ -15,9 +15,12 @@
   padding-bottom: 0;
   margin: .5%;
 }
+
+#search {
+  margin-top: 15px;
+}
 #sort-by {
-  margin: 8px 10% 0 0;
-  padding: 2px;
+  padding: 0 0 0 5%;
   text-align: right;
   font-size: 0.95em;
 }
@@ -25,6 +28,7 @@
 #sort-by-select {
   background-color: #FFFAF3;
   color: #474137;
+  display: inline-block;
 }
 #all h2 {
   font-family: 'Raleway', sans-serif;
@@ -38,17 +42,23 @@
 }
 
 #all #results h4 {
-font-family: 'Ameranth', sans-serif;
-font-weight: bold;
+  font-family: 'Ameranth', sans-serif;
+  font-weight: bold;
   font-size: 1em;
   padding: 0;
   color: #5F95C9;
 }
 
 #all #results h3 {
-  border-bottom: 2px solid #402304;
   padding-top: 1%;
   padding-bottom: 0.5%;
+  display: inline-block;
+}
+
+#results-header {
+  margin-top: 10px;
+  border-bottom: 2px solid #402304;
+  display: none;
 }
 
 #search-header {
