@@ -2,7 +2,6 @@ App.Views.Main = Backbone.View.extend({
   el: "#search",
   events: {
     "submit #submit-form" : "submitSearch",
-    "change #sort-by-select" : "submitSortedSearch"
   },
 
   initialize: function(){
@@ -25,7 +24,9 @@ App.Views.Main = Backbone.View.extend({
   submitSortedSearch: function(e){
     console.log('submitting sorted search');
     $('#successful-rating').fadeOut(100);
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     this.query = $('#search-field').val();
     if (this.query != "") {
       this.trigger('turn it off');

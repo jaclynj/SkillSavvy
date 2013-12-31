@@ -1,5 +1,6 @@
 App.Views.Results = Backbone.View.extend({
   events: {
+    "change #sort-by-select" : "triggerSortedSearch",
     "click a.rate-this" : "showRatingForm"
   },
   attributes: {
@@ -36,5 +37,8 @@ App.Views.Results = Backbone.View.extend({
   ratedSuccess: function() {
     var successMessage = $('#successful-rating');
     successMessage.fadeIn(600);
+  },
+  triggerSortedSearch: function() {
+    App.main.submitSortedSearch();
   }
 });
