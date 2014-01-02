@@ -183,6 +183,13 @@ font-size: 1em;
   margin-top: 2%;
 }
 
+#these-web-results a.next-link {
+  padding-top: 5px;
+  padding-bottom: 20px;
+  text-align: right;
+  float: right;
+}
+
 tr {
   text-align: left;
   float: none;

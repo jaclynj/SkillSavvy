@@ -1,24 +1,28 @@
 App.Views.Main = Backbone.View.extend({
   el: "#search",
   events: {
-    "submit #submit-form" : "submitSearch",
+    "submit #submit-form" : "setQuery",
   },
 
   initialize: function(){
     this.resources = new App.Collections.Resources({model: App.Models.Resource});
     this.ratings = new App.Collections.Ratings({model: App.Models.Rating});
     this.search = new App.Models.Search();
-    this.listenTo(this.search, 'gotResults', this.showResults);
+    this.listenTo(this.search, 'gotResults', this.createResultView);
   },
 
-  submitSearch: function(e){
-    console.log('submitting search');
+  setQuery: function(e){
+    console.log('setting Query');
     $('#successful-rating').fadeOut(100);
     e.preventDefault();
     this.query = $('#search-field').val();
+    this.submitSearch(1);
+  },
+  submitSearch: function(num){
+    console.log('submitting search');
     if (this.query != "") {
       this.trigger('turn it off');
-      this.search.searchWeb(this.query);
+      this.search.searchWeb(this.query, num);
     }
   },
   submitSortedSearch: function(e){
@@ -37,8 +41,8 @@ App.Views.Main = Backbone.View.extend({
     }
   },
 
-  showResults: function() {
-    this.results = new App.Views.Results({ el:"#results", attributes:{query: this.query} });
+  createResultView: function() {
+    this.results = new App.Views.Results({ el:"#results", attributes:{query: this.query, pageNumber: 1} });
     App.main.updateResources();
   },
 
