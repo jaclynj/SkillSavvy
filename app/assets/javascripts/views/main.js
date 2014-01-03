@@ -3,7 +3,7 @@ App.Views.Main = Backbone.View.extend({
   events: {
     "submit #submit-form" : "setQuery",
   },
-
+//NOTE: IF YOU'RE HAVING PROBLEMS, RUN  bundle exec rake assets:precompile
   initialize: function(){
     this.resources = new App.Collections.Resources({model: App.Models.Resource});
     this.ratings = new App.Collections.Ratings({model: App.Models.Rating});

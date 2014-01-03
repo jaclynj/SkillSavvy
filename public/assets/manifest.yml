@@ -29,9 +29,9 @@ starratings/45star.png: starratings/45star-873f9f14b406fce5174e719c9e2a33bd.png
 starratings/45star/index.png: starratings/45star-873f9f14b406fce5174e719c9e2a33bd.png
 starratings/50star.png: starratings/50star-ea0fedccf2d4ba634e535a9413161883.png
 starratings/50star/index.png: starratings/50star-ea0fedccf2d4ba634e535a9413161883.png
-application.js: application-d6330724e32a0b0b64b87155f895b0f7.js
-application/index.js: application-d6330724e32a0b0b64b87155f895b0f7.js
-application.css: application-79cf185eea9d16eb7d61e35bcbae328e.css
-application/index.css: application-79cf185eea9d16eb7d61e35bcbae328e.css
+application.js: application-a69896a9ed44322a6fccd0957740618a.js
+application/index.js: application-a69896a9ed44322a6fccd0957740618a.js
+application.css: application-b7bac372bfc4d3b1ac3d617c8d60c4a2.css
+application/index.css: application-b7bac372bfc4d3b1ac3d617c8d60c4a2.css
 jquery.min.map: jquery.min-6336c5bca4c709e809647cdfcb484d0a.map
 jquery/index.min.map: jquery.min-6336c5bca4c709e809647cdfcb484d0a.map

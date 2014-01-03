@@ -36,7 +36,9 @@ App.Views.Results = Backbone.View.extend({
   },
   ratedSuccess: function() {
     var successMessage = $('#successful-rating');
-    successMessage.fadeIn(600);
+    console.log('fading in');
+    successMessage.fadeIn(600).delay(2000).fadeOut(500);
+    console.log('should have faded out?');
   },
   triggerSortedSearch: function() {
     App.main.submitSortedSearch();

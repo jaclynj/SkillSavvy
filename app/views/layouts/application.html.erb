@@ -23,9 +23,13 @@
 <body id="all">
 <%= render "welcome/header" %>
   <div id="container">
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, :id => "flash" %>
-    <% end %>
+    <div id="flash-container">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash" %>
+      <% end %>
+    </div>
+
+
     <%= yield %>
   </div>
 
