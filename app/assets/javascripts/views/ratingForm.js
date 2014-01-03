@@ -51,8 +51,14 @@ App.Views.RatingForm = Backbone.View.extend({
         var existingResource = App.main.resources.findWhere({url: thisMain.attributes.url});
         if (existingResource && existingResource != [] && existingResource != null) {
           console.log('finding resource in db');
-          thisMain.resource = existingResource;
-          thisMain.createRating();
+          var existingRating = App.main.ratings.findWhere({user_id: App.main.userId, resource_id: existingResource.id });
+          if (existingRating && existingRating != null && existingRating != []) {
+            console.log("sorry, rating exists");
+            console.log(existingRating);
+          } else {
+            thisMain.resource = existingResource;
+            thisMain.createRating();
+          }
         } else {
           App.ratingForm.createResource();
         }
@@ -62,9 +68,7 @@ App.Views.RatingForm = Backbone.View.extend({
 
   createResource: function() {
     console.log('creating resource');
-    thisMain = App.ratingForm;
-    thisMain.userId = $('form #user-id').val();
-    thisMain.userId = parseInt(thisMain.userId);
+    var thisMain = App.ratingForm;
     thisMain.resource.set({
       query: thisMain.attributes.query,
       title: thisMain.attributes.title,
@@ -81,14 +85,13 @@ App.Views.RatingForm = Backbone.View.extend({
   },
 
   createRating: function() {
-    //TODO this should happen only if this users has not rated this resource
     console.log('creating rating');
     this.skillLevel = $('#skill-level option:selected').val();
     this.overallRating = $('#overall-rating option:selected').val();
     this.overallRating = parseInt(this.overallRating);
     this.rating.set({
       resource_id: App.ratingForm.resource.id,
-      user_id: App.ratingForm.userId,
+      user_id: App.main.userId,
       overall_rating: this.overallRating
       });
     this.setSkillLevel();

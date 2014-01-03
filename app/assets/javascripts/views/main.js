@@ -9,6 +9,8 @@ App.Views.Main = Backbone.View.extend({
     this.ratings = new App.Collections.Ratings({model: App.Models.Rating});
     this.search = new App.Models.Search();
     this.listenTo(this.search, 'gotResults', this.createResultView);
+    this.userId = $('form #user-id').val();
+    this.userId = parseInt(this.userId);
   },
 
   setQuery: function(e){
@@ -212,8 +214,22 @@ App.Views.Main = Backbone.View.extend({
     return ratingDiv;
   },
 
-  displayRateThisLink: function() {
+  skillLevel: function(ratingModel) {
+    var attrs = ratingModel.attributes;
+    if (attrs.newbie_rating > 0) {
+      return "Newbie level";
+    } else if (attrs.novice_rating > 0) {
+      return "Novice level";
+    } else if (attrs.adv_rating > 0) {
+      return "Advanced level";
+    } else if (attrs.expert_rating > 0 ) {
+      return "Expert level";
+    }
+  },
+
+  displayRateThisLink: function(existingRating) {
     //move these to the results view
+
     var rateLink = $('<a>',{
       text: "Rate This",
       href: '/ratings/new'
@@ -226,12 +242,23 @@ App.Views.Main = Backbone.View.extend({
 
     rateLink.addClass('rate-this');
     logInLink.addClass('add-rating');
-
-    if (  $("#user-box:contains('Login')").length > 0  ) {
+    if (existingRating && existingRating != null && existingRating != []) {
+      var skillLvl = App.main.skillLevel(existingRating);
+      var starDiv = $('<div>');
+      starDivClass = App.main.addStarRating(existingRating.attributes.overall_rating);
+      starDiv.addClass(starDivClass);
+      starDiv.addClass('my-rating');
+      var alreadyRated = $("<div>Your rating: </div>");
+      alreadyRated.append(starDiv);
+      // alreadyRated.append("at the " + skillLvl);
+      alreadyRated.addClass('already-rated');
+      return alreadyRated;
+    } else if (  $("#user-box:contains('Login')").length > 0  ) {
       return logInLink;
     } else {
       return rateLink;
     }
+
   },
   overallSort: function(a,b) {
     if (a.ratings.overallRating < b.ratings.overallRating )
@@ -315,7 +342,8 @@ App.Views.Main = Backbone.View.extend({
     ratingDiv.attr("id", "rating-" + model.id);
     thisResult.append(ratingDiv);
     //return thisResult, div with the result and rating
-    var rateThisLink = App.main.displayRateThisLink();
+    var existingRating = App.main.ratings.findWhere({resource_id: model.id, user_id: App.main.userId});
+    var rateThisLink = App.main.displayRateThisLink(existingRating);
     div.append('<br>');
     div.append(rateThisLink);
     return thisResult;
@@ -389,7 +417,7 @@ App.Views.Main = Backbone.View.extend({
           //description
           div.append("<br>" + thisResource.content);
           div.append("<br>");
-          div.append( App.main.displayRateThisLink() );
+          div.append( App.main.displayRateThisLink(null) );
           thisResultDiv.append(div);
           thisResultDiv.append(notRatedDiv);
           notInDB.append(thisResultDiv);
