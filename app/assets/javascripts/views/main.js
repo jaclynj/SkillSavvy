@@ -14,21 +14,21 @@ App.Views.Main = Backbone.View.extend({
   },
 
   setQuery: function(e){
-    console.log('setting Query');
+    // console.log('setting Query');
     $('#successful-rating').fadeOut(100);
     e.preventDefault();
     this.query = $('#search-field').val();
     this.submitSearch(1);
   },
   submitSearch: function(num){
-    console.log('submitting search');
+    // console.log('submitting search');
     if (this.query != "") {
       this.trigger('turn it off');
       this.search.searchWeb(this.query, num);
     }
   },
   submitSortedSearch: function(e){
-    console.log('submitting sorted search');
+    // console.log('submitting sorted search');
     $('#successful-rating').fadeOut(100);
     if (e) {
       e.preventDefault();
@@ -52,20 +52,20 @@ App.Views.Main = Backbone.View.extend({
     $('#web-results').fadeOut( 100, function() {
       $('#throbber').removeClass('hidden');
     });
-    console.log(App.main.resources);
+    // console.log(App.main.resources);
     App.main.resources.fetch({
       success: function() {
-        console.log(App.main.resources);
+        // console.log(App.main.resources);
         App.main.updateRatings();
       }
     });
   },
 
   updateRatings: function(){
-    console.log(App.main.ratings);
+    // console.log(App.main.ratings);
     App.main.ratings.fetch({
       success: function() {
-        console.log(App.main.ratings);
+        // console.log(App.main.ratings);
         App.main.search.webSearch.get(App.main.displayResults);
       }
     });
@@ -358,7 +358,7 @@ App.Views.Main = Backbone.View.extend({
   displayResults: function(feedObject) {
     //move these to the results view
     //this is the setup
-    console.log('displaying results');
+    // console.log('displaying results');
     $('#throbber').addClass('hidden');
     var resultsArea = $('#results');
     var webResultsOnPage = $('#web-results');

@@ -8,6 +8,6 @@
         // new App.UserSession();
       },
       index: function(){
-        console.log('index');
+        // console.log('index');
       }
     });

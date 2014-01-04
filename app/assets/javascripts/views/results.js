@@ -28,17 +28,17 @@ App.Views.Results = Backbone.View.extend({
       rating.fadeIn(320);
   },
   reloadResults: function(){
-    console.log('before reloading');
+    // console.log('before reloading');
     $('#successful-rating').fadeOut(100);
     App.main.updateResources();
-    console.log('after reloading');
+    // console.log('after reloading');
     App.main.results.ratedSuccess();
   },
   ratedSuccess: function() {
     var successMessage = $('#successful-rating');
-    console.log('fading in');
+    // console.log('fading in');
     successMessage.fadeIn(600).delay(2000).fadeOut(500);
-    console.log('should have faded out?');
+    // console.log('should have faded out?');
   },
   triggerSortedSearch: function() {
     App.main.submitSortedSearch();

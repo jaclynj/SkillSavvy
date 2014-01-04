@@ -24,13 +24,13 @@ App.Views.RatingForm = Backbone.View.extend({
     if (e) {
       e.preventDefault();
     }
-    console.log('closing form');
+    // console.log('closing form');
     this.$el.fadeOut(200, function(){
       App.ratingForm.$el.addClass('hidden');
     });
   },
   submitForm: function(e) {
-    console.log('submit button clicked');
+    // console.log('submit button clicked');
     if (e) {
       e.preventDefault();
     }
@@ -39,22 +39,22 @@ App.Views.RatingForm = Backbone.View.extend({
   },
 
   assignResource: function(e) {
-    console.log('im in the assign resource function');
+    // console.log('im in the assign resource function');
     //creates or finds resource if it exists
     if (e) {
       e.preventDefault();
     };
-    console.log('submitting form...');
+    // console.log('submitting form...');
     App.main.resources.fetch({
       success: function(){
         var thisMain = App.ratingForm;
         var existingResource = App.main.resources.findWhere({url: thisMain.attributes.url});
         if (existingResource && existingResource != [] && existingResource != null) {
-          console.log('finding resource in db');
+          // console.log('finding resource in db');
           var existingRating = App.main.ratings.findWhere({user_id: App.main.userId, resource_id: existingResource.id });
           if (existingRating && existingRating != null && existingRating != []) {
-            console.log("sorry, rating exists");
-            console.log(existingRating);
+            // console.log("sorry, rating exists");
+            // console.log(existingRating);
           } else {
             thisMain.resource = existingResource;
             thisMain.createRating();
@@ -67,7 +67,7 @@ App.Views.RatingForm = Backbone.View.extend({
   },
 
   createResource: function() {
-    console.log('creating resource');
+    // console.log('creating resource');
     var thisMain = App.ratingForm;
     thisMain.resource.set({
       query: thisMain.attributes.query,
@@ -77,15 +77,15 @@ App.Views.RatingForm = Backbone.View.extend({
     });
       thisMain.resource.save(null, {
       success: function(model, response){
-        console.log('saved resource');
-        console.log(model);
+        // console.log('saved resource');
+        // console.log(model);
         thisMain.resource.trigger('savedResource');
       }
     });
   },
 
   createRating: function() {
-    console.log('creating rating');
+    // console.log('creating rating');
     this.skillLevel = $('#skill-level option:selected').val();
     this.overallRating = $('#overall-rating option:selected').val();
     this.overallRating = parseInt(this.overallRating);
@@ -117,11 +117,11 @@ App.Views.RatingForm = Backbone.View.extend({
     }
     this.rating.save(null, {
       success: function(model, response){
-        console.log('saved rating, resetting everything');
+        // console.log('saved rating, resetting everything');
         App.ratingForm.trigger('resetEverything');
       },
       error: function(model, response) {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
