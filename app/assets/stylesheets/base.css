@@ -92,6 +92,7 @@ color: #6A83CB;
 
 #flash-container {
   height: 50px;
+  padding-top: 10px;
 }
 
 #success-container {
