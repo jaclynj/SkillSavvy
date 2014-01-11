@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/jaclynj/learner_app/badge.png)](https://coveralls.io/r/jaclynj/learner_app)
 
 
-Skill Savvy
+#Skill Savvy
 
 About: The site allows you to search resources for any skill you want to learn. each resource is rated by other users with your same skill level. So you can easily see what resources people find to be most helpful in learning that ability or skill.
 
