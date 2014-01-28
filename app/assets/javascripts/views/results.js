@@ -1,46 +1,56 @@
+//RESULTS VIEW - Sorts and displays Results
+
 App.Views.Results = Backbone.View.extend({
   events: {
     "change #sort-by-select" : "triggerSortedSearch",
     "click a.rate-this" : "showRatingForm"
   },
+
   attributes: {
     //this.attributes.query
   },
+
   showRatingForm: function(e){
       e.preventDefault();
-      //displays and moves rating box
-      var rating = $('#rating-form');
+      //this is important! Prevents rating form from submitting multiple times
+      this.preventMultipleSubmissions();
+
       //passes attributes of resource to rating form
       var item = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[2]);
       var bod = $(e.currentTarget.attributes.href.ownerElement.parentElement.childNodes[6]);
       var resourceBody = bod.text();
       var resourceLink = item.context.href;
       var resourceName = item.context.textContent;
-      //this is important! Prevents rating form from submitting multiple times
-      if (App.ratingForm) {
-        App.ratingForm.stopListening();
-        App.ratingForm.undelegateEvents();
-      };
-      //that was important
+
+      //createsRatingForm
       App.ratingForm = new App.Views.RatingForm({attributes:{query: this.attributes.query, title: resourceName, url: resourceLink, description: resourceBody} });
       App.ratingForm.on('resetEverything', this.reloadResults);
-      rating.removeClass('hidden');
-      rating.fadeIn(320);
+      this.showForm();
+  },
+
+  showForm: function() {
+    var rating = $('#rating-form');
+    rating.removeClass('hidden');
+    rating.fadeIn(320);
+  },
+
+  preventMultipleSubmissions: function() {
+    //Prevents rating form from submitting multiple times
+    if (App.ratingForm) {
+      App.ratingForm.stopListening();
+      App.ratingForm.undelegateEvents();
+    }
   },
 
   reloadResults: function(){
-    // console.log('before reloading');
     $('#successful-rating').fadeOut(100);
     App.main.updateResources();
-    // console.log('after reloading');
     App.main.results.ratedSuccess();
   },
 
   ratedSuccess: function() {
     var successMessage = $('#successful-rating');
-    // console.log('fading in');
     successMessage.fadeIn(600).delay(2000).fadeOut(500);
-    // console.log('should have faded out?');
   },
 
   triggerSortedSearch: function() {
@@ -148,22 +158,20 @@ App.Views.Results = Backbone.View.extend({
       //display 0 stars
       starRatingClass = "star00";
     }
+    //returns class name, used to display star rating images
     return starRatingClass;
-    //should returns class name
   },
 
   displayRating: function(ratingsAverages){
     //this is called in displayResults
-    //move these to the results view
     var ratingDiv = $('<div>');
     ratingDiv.addClass('rating-div col-md-3');
     var rA = ratingsAverages;
 
-    //refactor into a handlebars template
+    //TODO: refactor into a handlebars template
     ratingDiv.append('<h4>Ratings from other learners</h4>');
     var tb = $('<table>');
 
-    //tb.append('<tr>'+ '<td>' + "overall rating: " + '</td><td>' + rA.overallRating + '</td>' +'</tr>');
     var overallStars = App.main.results.addStarRating(rA.overallRating);
     var overallRatingTR = "<tr>"+ "<td class = 'rating-type' >" + "overall rating: " + "</td><td class = '" + overallStars + " star' >" + "</td>" + "<td>" + rA.overallRating + "</td>" + "</tr>";
     tb.append( overallRatingTR );
@@ -171,7 +179,6 @@ App.Views.Results = Backbone.View.extend({
     var newbieStars = App.main.results.addStarRating(rA.newbieRating);
     var newbieRatingTR = "<tr>"+ "<td class = 'rating-type' >" + "newbie rating: " + "</td><td class = '" + newbieStars + " star' >" + "</td>" + "<td>" + rA.newbieRating + "</td>" + "</tr>";
     tb.append( newbieRatingTR );
-
 
     var noviceStars = App.main.results.addStarRating(rA.noviceRating);
     var noviceRatingTR = "<tr>"+ "<td class = 'rating-type' >" + "novice rating: " + "</td><td class = '" + noviceStars + " star' >" + "</td>" + "<td>" + rA.noviceRating + "</td>" + "</tr>";
@@ -204,7 +211,6 @@ App.Views.Results = Backbone.View.extend({
   },
 
   displayRateThisLink: function(existingRating) {
-    //move these to the results view
 
     var rateLink = $('<a>',{
       text: "Rate This",
@@ -226,7 +232,6 @@ App.Views.Results = Backbone.View.extend({
       starDiv.addClass('my-rating');
       var alreadyRated = $("<div>Your rating: </div>");
       alreadyRated.append(starDiv);
-      // alreadyRated.append("at the " + skillLvl);
       alreadyRated.addClass('already-rated');
       return alreadyRated;
     } else if (  $("#user-box:contains('Login')").length > 0  ) {
@@ -236,6 +241,8 @@ App.Views.Results = Backbone.View.extend({
     }
 
   },
+
+  //sorting functions
   overallSort: function(a,b) {
     if (a.ratings.overallRating < b.ratings.overallRating )
       return 1;
@@ -271,6 +278,8 @@ App.Views.Results = Backbone.View.extend({
       return -1;
     return 0;
   },
+  //end of sorting functions
+
   createSortedDiv: function(ratingsArray){
     var sortedResults = $('<div>');
     //create a div for each
@@ -338,7 +347,6 @@ App.Views.Results = Backbone.View.extend({
     var webResultsOnPage = $('#web-results');
     var webResults = $("<div>");
     webResultsOnPage.html(webResults);
-    // webResultsOnPage.prepend("<h3>Results</h3>");
     webResults.attr("id", "these-web-results");
     var sortedRatings = [];
     var notInDB = $("<div>");

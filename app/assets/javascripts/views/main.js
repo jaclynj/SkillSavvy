@@ -1,9 +1,12 @@
+//SEARCH VIEW - Submits search query
+//NOTE: If you're having problems, RUN  bundle exec rake assets:precompile
+
 App.Views.Main = Backbone.View.extend({
   el: "#search",
   events: {
     "submit #submit-form" : "setQuery",
   },
-//NOTE: If you're having problems, RUN  bundle exec rake assets:precompile
+
   initialize: function(){
     this.resources = new App.Collections.Resources({model: App.Models.Resource});
     this.ratings = new App.Collections.Ratings({model: App.Models.Rating});
@@ -19,12 +22,14 @@ App.Views.Main = Backbone.View.extend({
     this.query = $('#search-field').val();
     this.submitSearch(1);
   },
+
   submitSearch: function(num){
     if (this.query != "") {
       this.trigger('turn it off');
       this.search.searchWeb(this.query, num);
     }
   },
+
   submitSortedSearch: function(e){
     $('#successful-rating').fadeOut(100);
     if (e) {
@@ -41,7 +46,13 @@ App.Views.Main = Backbone.View.extend({
   },
 
   createResultView: function() {
-    this.results = new App.Views.Results({ el:"#results", attributes:{query: this.query, pageNumber: 1} });
+    this.results = new App.Views.Results({
+      el:"#results",
+      attributes:{
+        query: this.query,
+        pageNumber: 1
+      }
+    });
     App.main.updateResources();
   },
 

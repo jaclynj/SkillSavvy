@@ -1,9 +1,12 @@
+//RATING VIEW - Sets rating and submits ratings
+
 App.Views.RatingForm = Backbone.View.extend({
   el:"#rating-form",
   events: {
     "click button#x-button" : "closeForm",
     "click #submit-button" : "submitForm",
   },
+
   attributes: {
     //this.attributes.query
     //this.attributes.title
@@ -28,34 +31,39 @@ App.Views.RatingForm = Backbone.View.extend({
       App.ratingForm.$el.addClass('hidden');
     });
   },
+
   submitForm: function(e) {
     if (e) {
       e.preventDefault();
     }
     App.ratingForm.closeForm();
-    App.ratingForm.assignResource();
+    App.ratingForm.updateResource();
   },
 
-  assignResource: function(e) {
+  updateResource: function(e) {
     if (e) {
       e.preventDefault();
     };
     App.main.resources.fetch({
       success: function(){
-        var thisMain = App.ratingForm;
-        var existingResource = App.main.resources.findWhere({url: thisMain.attributes.url});
-        if (existingResource && existingResource != [] && existingResource != null) {
-          var existingRating = App.main.ratings.findWhere({user_id: App.main.userId, resource_id: existingResource.id });
-          if (existingRating && existingRating != null && existingRating != []) {
-          } else {
-            thisMain.resource = existingResource;
-            thisMain.createRating();
-          }
-        } else {
-          App.ratingForm.createResource();
-        }
+        App.ratingForm.assignResource();
       }
     });
+  },
+
+  assignResource: function() {
+    var thisMain = App.ratingForm;
+    var existingResource = App.main.resources.findWhere({url: thisMain.attributes.url});
+    if (existingResource && existingResource != [] && existingResource != null) {
+      var existingRating = App.main.ratings.findWhere({user_id: App.main.userId, resource_id: existingResource.id });
+      if (existingRating && existingRating != null && existingRating != []) {
+      } else {
+        thisMain.resource = existingResource;
+        thisMain.createRating();
+      }
+    } else {
+      App.ratingForm.createResource();
+    }
   },
 
   createResource: function() {
